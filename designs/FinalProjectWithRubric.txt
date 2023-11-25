@@ -1,0 +1,93 @@
+CSCI 366 final project
+
+Implement an application with database involved. The application:
+
+1. Implement one of the proposed ideas (see project idea doc)
+
+2. Work with Postgresql database server.
+
+3. Write a Java or C# application to provide a way to “communicate” with end users
+a. Graphic user interface 
+b. Console 
+
+4. Data model size: at least 4 entities with one-to-many and many-to-many relationships
+
+5. Display meaningful information from database upon user requests
+For example, display department name of an employee instead of department number.
+ 
+6. Update (insert/update/delete) data in database upon user requests
+
+7. Work in a team with 2 – 4 members
+
+* Do not reuse the project you did in other classes. 
+* You need to write program to connect to the database server, include SQL statements in program to retrieve and update data. Do NOT relies on existing frameworks to configure the result set and generate SQL statements at runtime. 
+
+What to submit in the final package:
+1. Team members (2 -4 per team)
+2. Responsibility of each team members (everyone should be involved in design and implementation steps)
+3. Project requirement doc
+a. Topic (in few sentences) 
+b. List functionalities implemented in the project (use bullet items)
+4. ERD for data modeling
+5. Script (.sql file) for creating tables, views, functions, index and inserting initial records 
+Views, functions, index are optional
+6. Class design (list classes and methods in each class or use UML diagram) 
+7. Source code (in zip)
+
+Final project road map:
+
+10/31 – 11/6: 	Form a team
+		Decide project idea in few sentences
+		Included in assignment 7 (individual submission)
+ 
+11/7 – 11/17:	Finalize project requirement doc 
+		List functionalities will be implemented in the project (use bullet items, not paragraph)
+		ERD for the data model
+		Choose programming language
+		Set responsibility between team members (who implement what functionality)
+		Assignment 8 (group submission)
+
+11/18 – 11/24:	SQL statements to create tables, set constraints
+		SQL statements to create views (optional), functions (optional), index (optional)
+		SQL statements for inserting initial data (make sure your table structure works for the requirement)
+		Assignment 9 (group submission)
+
+Then:  Decide how to work together and start coding
+
+Demo with me: 12/11, 12, 13
+		30 minutes per group
+		
+You don’t have to wait on this schedule, move forward when you are ready. 
+You can schedule an appointment for demo before the final week.
+It is ok to adjust the initial design during implementation, update requirement and design doc accordingly.
+
+RUBRIC
+1. Database design (20)
+a. 3NF
+b. Data consistency
+c. No unnecessary tables
+d. At least 5 tables
+
+2. Relations (10)
+a. Has one to many relationship
+b. Has many to many relationship
+
+3. Read operation (15)
+a. Read operation with conditions (example: list all employee for a certain department)
+b. Read from multiple tables (example: list employee and the project he/she is working on)
+c. List some data summary information (example: show the most expensive project, show the number of employees worked in each department)
+
+4. Write operation   (15)
+a. Insert  (example: add a new project and assignment employees to work on it)
+b. update  (example: increase the estimate cost for a project)
+c. delete  (example: cancel the project, and remove the employee assignment)
+
+5. Function well  (15)
+
+6. Parameterized sql (secure way to write sql statement) (15)
+
+7. Class design (10)
+
+a. Design classes for different responsibilities. 
+
+

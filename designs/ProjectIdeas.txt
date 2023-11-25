@@ -1,0 +1,78 @@
+Project ideas:
+
+Online store:
+1. Track products in inventory
+a. Name, description, category, quantity, current unit price, availability, provider name, provider contact number, provider address  … 
+b. Can filter the list base on certain criteria (list products by a certain provider, in a certain category)
+c. Can add new products
+d. Can update the information of a product
+e. Can change provider of a product
+f. Can mark a product as not available
+g. Track price change: for which product, original price, reason for changes, when the change happened
+h. ……
+2. Track customer info
+a. Customer name, email, contact phone, delivery address …
+b. Add /remove a customer
+c. Edit customer information
+d. ……
+3. Track customer order
+a. Who ordered what, when the order is placed
+b. Price of each item ordered, and total price (do not need to worry about the tax and shipping cost)
+c. List all orders for a single customer
+d. List the most popular item been sold 
+e. Show the most expensive item in store.
+f. ……
+
+Online test (multiple choices) facility:
+1. User 
+a. Create an account
+b. Update his /her information
+c. Cancel account and ask the system to delete all the related information
+2. Test creator can
+a. Create a test
+b. Add questions and choices to the test, and mark the correct one
+c. The same question can be reused by many tests
+d. Assignment points for each question
+e. Update questions
+f. Delete a question, a choice, or entire test
+3. User who take the test
+a. Can see all the test available on the facility
+b. See all the test created by this user
+c. Pick the test to take
+d. Complete the test and see scores
+4. System will track the scores for all the users who took tests 
+a. Display the test and score for a user
+b. Display the highest scores and test for a user
+c. Display the highest score and user account name for a test among all users
+
+Shopping list:
+1. Add/update/remove item to shopping list 
+a. Name  
+b. Category 
+c. Price
+d. Which store
+e. Date 
+f. …
+2. Manage categories
+a. Create a new category
+b. Can rename categories (update all the items category related to the update)
+c. Can delete category
+3. List all the items purchased in a store
+4. List all the items in a category
+5. List the total cost for a category in a period 
+6. List the most expensive item purchased in a period
+7. ……
+
+Library 
+1. User can create account with the library
+a. Update user info
+b. Remove user account
+2. Track books (title, author, publisher, publish time, description, number of copies …… )
+a. Update book info
+b. Remove book 
+c. Browse books by title, author, genre, availability …
+3. User can check out one or more books
+a. Date he checked out
+b. Date to return the book
+c. ……
+4. ……
