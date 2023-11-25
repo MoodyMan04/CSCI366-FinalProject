@@ -1,0 +1,46 @@
+Topic:
+ACM Library
+This database and framework will provide users with the ability to check out and return books to the ACM library.
+
+NOTE: return dates for books is a constant set by the admin (typically the end of a semester)
+
+Functionalities:
+(admins can do everything a user can do + more)
+
+- Read
+	o Admin
+		 Can read users and all books checked out
+		 Which users have overdue books and what specific book it is
+	o User
+		 Every book without a filter
+		 View checked out books
+		 Filter by language, book title, author, required class
+		 How many books of each language
+- Write
+	o Admin
+		 Add users
+		 Add books
+		 Add authors
+		 Add classes
+- Update
+	o Admin
+		 Update book info
+		 Update classes
+		 Update Authors
+		 Update checked out books
+	o User
+		 Update their user info
+		 Check out a book
+		 Return a book
+- Delete
+	o Admin
+		 Delete books
+		 Delete Authors
+		 Delete users
+		 Delete classes
+
+• Be sure to delete everything from linking tables before deleting from base table
+
+Language:
+Visual Studio C# .ASP.Net Framework
+
