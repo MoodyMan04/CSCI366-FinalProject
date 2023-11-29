@@ -28,6 +28,8 @@ Functionalities:
 		 Update classes
 		 Update Authors
 		 Update checked out books
+		 Update required classes to book
+		 Update authors to book
 	o User
 		 Update their user info
 		 Check out a book
