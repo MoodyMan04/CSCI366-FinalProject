@@ -10,7 +10,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 {
     public class Book
     {
-        // Private instance variables
+        // Instance variables
         public int Book_id { get; private set; }
         public string title { get; private set; }
         public string publisher { get; private set; }
@@ -57,7 +57,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
         // Static method to get book with matching id (called by webpage)
         // (Example of prepared sql command, returning a book)
-        public Book GetBookById(int Book_id) // UNTESTED
+        public static Book GetBookById(int Book_id) // UNTESTED
         {
             // Get db connection
             NpgsqlConnection conn = DatabaseManager.GetConnection();
@@ -88,5 +88,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             // Return book
             return book;
         } 
+
+        // REST OF SQL METHODS FOR BOOK CLASS ADDED HERE
     }
 }
