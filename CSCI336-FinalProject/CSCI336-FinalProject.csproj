@@ -252,6 +252,10 @@
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="CSCI366FinalWork\DatabaseManager.cs" />
+    <Compile Include="CSCI366FinalWork\Objects\Author.cs" />
+    <Compile Include="CSCI366FinalWork\Objects\Book.cs" />
+    <Compile Include="CSCI366FinalWork\Objects\Class.cs" />
+    <Compile Include="CSCI366FinalWork\Objects\User.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -287,7 +291,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="CSCI366FinalWork\Objects\" />
     <Folder Include="CSCI366FinalWork\Webpages\" />
   </ItemGroup>
   <ItemGroup>
