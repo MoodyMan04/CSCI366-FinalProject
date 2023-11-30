@@ -1,23 +1,23 @@
 UML:
 - Database Manager
 	o Attributes
-		 Connection: Connection
+		(DONE - UNTESTED)  Connection: Connection
 	o Methods
-		 + GetConnection(): Connection
+		(DONE - UNTESTED)  + GetConnection(): Connection
 		 - SetConnection(): void
 		 - CloseConnection(): void
 - Book
 	o Attributes
-		 Book_id: int
-		 Title: String
-		 Publisher: String
-		 Language: String
-		 Date_Published: DateTime
+		(DONE - UNTESTED)  Book_id: int
+		(DONE - UNTESTED)  Title: String
+		(DONE - UNTESTED)  Publisher: String
+		(DONE - UNTESTED)  Language: String
+		(DONE - UNTESTED)  Date_Published: DateTime
 	o Methods
-		 + GetBookAll(): List<Book>
+		(DONE - UNTESTED)  + GetBookAll(): List<Book>
 		 + GetBookByTitle(String title): List<Book>
 		 + GetBookByLanguage(String lang): List<Book>
-		 + GetBookByID(int id): Book
+		(DONE - UNTESTED)  + GetBookByID(int id): Book
 		 + GetBookLangCount(String lang): int
 		 + GetBookCountAll(): int
 		 + AddClassRequirement(int bookID, int classID): void
@@ -34,9 +34,9 @@ UML:
 			• Check isAdmin of current logged in user
 - Class
 	o Attributes
-		 Class_id: int
-		 Class_name: String
-		 Class_description: String
+		(DONE - UNTESTED)  Class_id: int
+		(DONE - UNTESTED)  Class_name: String
+		(DONE - UNTESTED)  Class_description: String
 	o Methods
 		 + GetClassAll(): List<Class>
 		 + GetClassByID(int id): Class
@@ -48,9 +48,9 @@ UML:
 			• Check isAdmin of current logged in user
 - Author
 	o Attributes
-		 Author_id: int
-		 Firstname: String
-		 Lastname: String
+		(DONE - UNTESTED)  Author_id: int
+		(DONE - UNTESTED)  Firstname: String
+		(DONE - UNTESTED)  Lastname: String
 	o Methods
 		 + GetAuthorAll(): List<Author>
 		 + GetAuthorByID(int id): Author
