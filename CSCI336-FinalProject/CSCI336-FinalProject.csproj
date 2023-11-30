@@ -251,7 +251,7 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CSCI366FinalWork\Class1.cs" />
+    <Compile Include="CSCI366FinalWork\DatabaseManager.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -287,6 +287,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="CSCI366FinalWork\Objects\" />
+    <Folder Include="CSCI366FinalWork\Webpages\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
