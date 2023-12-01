@@ -13,10 +13,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         public string dev_language { get; private set; }
         public DateTime date_published { get; private set; }
 
-        // SQL methods
-
-        // Static method to get a list of all books (called by webpage)
-        // (Example of sql method, returning a list of book objects)
+        /// <summary>
+        /// fetches all books
+        /// </summary>
+        /// <returns> a list of all books </returns>
         public static List<Book> GetBooksAll() // UNTESTED
         {
             // Get db connection
@@ -51,9 +51,12 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             return books;
         }
 
-        // Static method to get book with matching id (called by webpage)
-        // (Example of prepared sql command, returning a book)
-        public static Book GetBookById(int Book_id) // UNTESTED
+        /// <summary>
+        /// fetches books by passed in ID
+        /// </summary>
+        /// <param name="id"> id of book</param>
+        /// <returns> new Book objects </returns>
+        public static Book GetBookById(int id) // UNTESTED
         {
             // Get db connection
             NpgsqlConnection conn = DatabaseManager.GetConnection();
@@ -64,7 +67,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             // Make command for db
             string query = "SELECT * FROM Books WHERE Book_id = @Book_id";
             NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@Book_id", Book_id);
+            cmd.Parameters.AddWithValue("@Book_id", id);
             cmd.Prepare();
 
             // Get data out of command and get book object
@@ -85,7 +88,11 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             return book;
         }
 
-        // REST OF SQL METHODS FOR BOOK CLASS ADDED HERE
+        /// <summary>
+        /// fectehs all books by title
+        /// </summary>
+        /// <param name="title"> title of book </param>
+        /// <returns> a list of book objects </returns>
         public static List<Book> GetBookByTitle(string title)
         {
             // Get db connection
@@ -103,8 +110,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             List<Book> books = new List<Book>();
 
             NpgsqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-
             while (reader.Read())
             {
                 Book book = new Book();
@@ -120,5 +125,43 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
             return books;
         }
+
+        /// <summary>
+        /// fecthes books by a language
+        /// </summary>
+        /// <param name="language"> the language of the book</param>
+        /// <returns> a list of book objects </returns>
+        public static List<Book> GetBookByLanguage(String language)
+        {
+            NpgsqlConnection conn = DatabaseManager.GetConnection();
+            conn.Open();
+
+            string query = "SELECT * FROM Books WHERE dev_languagec = @lang";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("language", language);
+            cmd.Prepare();
+
+            List<Book> books = new List<Book>();
+            NpgsqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Book book = new Book();
+                book.Book_id = Convert.ToInt32(reader["Book_id"]);
+                book.title = Convert.ToString(reader["title"]);
+                book.publisher = Convert.ToString(reader["publisher"]);
+                book.dev_language = Convert.ToString(reader["dev_language"]);
+                book.date_published = Convert.ToDateTime(reader["date_published"]);
+
+                books.Add(book);
+            }
+            conn.Close();
+            return books;
+        }
+
+        public static int GetBookCountAll()
+        {
+            return 0;
+        }
+
     }
 }
