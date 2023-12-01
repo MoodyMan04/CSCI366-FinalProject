@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using Npgsql;
 
 namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 {
@@ -87,8 +83,42 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
             // Return book
             return book;
-        } 
+        }
 
         // REST OF SQL METHODS FOR BOOK CLASS ADDED HERE
+        public static List<Book> GetBookByTitle(string title)
+        {
+            // Get db connection
+            NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+            // Open connection to db
+            conn.Open();
+
+            // Make command for db
+            string query = "SELECT * FROM Books WHERE title = @title";
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            cmd.Parameters.AddWithValue($"title={title}");
+            cmd.Prepare();
+
+            List<Book> books = new List<Book>();
+
+            NpgsqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+
+            while (reader.Read())
+            {
+                Book book = new Book();
+                book.Book_id = Convert.ToInt32(reader["Book_id"]);
+                book.title = Convert.ToString(reader["title"]);
+                book.publisher = Convert.ToString(reader["publisher"]);
+                book.dev_language = Convert.ToString(reader["dev_language"]);
+                book.date_published = Convert.ToDateTime(reader["date_published"]);
+
+                books.Add(book);
+            }
+            conn.Close();
+
+            return books;
+        }
     }
 }
