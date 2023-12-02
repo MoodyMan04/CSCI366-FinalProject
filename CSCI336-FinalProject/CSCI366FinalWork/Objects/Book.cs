@@ -164,12 +164,19 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         ///  returns all book counts
         /// </summary>
         /// <returns> int </returns>
-        public static int GetBookCountAll()
+        public static long GetBookCountAll()
         {
             NpgsqlConnection conn = DatabaseManager.GetConnection();
             conn.Open();
 
-            string query = "COUNIT(SELECT * FROM book)";
+            string query = "SELECT COUNT(*";
+
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+
+            long count = (long)cmd.ExecuteScalar();
+            conn.Close();
+            return count;
+
         }
     }
 }
