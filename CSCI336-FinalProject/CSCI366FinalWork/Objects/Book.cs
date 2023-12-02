@@ -140,7 +140,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
             string query = "SELECT * FROM books WHERE dev_language = @lang";
             NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@language", language);
+            cmd.Parameters.AddWithValue("@lang", language);
             cmd.Prepare();
 
             List<Book> books = new List<Book>();
@@ -169,14 +169,35 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             NpgsqlConnection conn = DatabaseManager.GetConnection();
             conn.Open();
 
-            string query = "SELECT COUNT(*";
+            string query = "SELECT COUNT(*)";
 
             NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-
             long count = (long)cmd.ExecuteScalar();
             conn.Close();
             return count;
+        }
 
+        /// <summary>
+        /// insert a book and clss id into linking table with if the book is required or not.
+        /// </summary>
+        /// <param name="bookid"> id of book </param>
+        /// <param name="classid"> id of class </param>
+        /// <param name="req"> a boolean to specify if the book is required </param>
+        public static void AddClassRequirement(int bookid, int classid, Boolean req)
+        {
+            NpgsqlConnection conn = DatabaseManager.GetConnection();
+            conn.Open();
+
+            string query = "INSERT INTO accoiatedwith (class_id, book_id, is_required) VALUES(@bookid, @classid, @req)";
+
+            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@bookid", bookid);
+            cmd.Parameters.AddWithValue("@classid", classid);
+            cmd.Parameters.AddWithValue("@req", req);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
         }
     }
 }
