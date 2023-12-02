@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CSCI336_FinalProject
+namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
 {
 
 
-    public partial class Contact
+    public partial class admin
     {
     }
 }
