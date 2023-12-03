@@ -188,7 +188,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             NpgsqlConnection conn = DatabaseManager.GetConnection();
             conn.Open();
 
-            string query = "INSERT INTO accoiatedwith (class_id, book_id, is_required) VALUES(@bookid, @classid, @req)";
+            string query = "INSERT INTO asscoiatedwith (class_id, book_id, is_required) VALUES(@bookid, @classid, @req)";
 
             NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@bookid", bookid);
