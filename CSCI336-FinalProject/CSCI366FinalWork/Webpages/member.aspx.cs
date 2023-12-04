@@ -16,6 +16,9 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             // Load grid view library with all books
             gvLibrary.DataSource = Book.GetBooksAll();
             gvLibrary.DataBind();
+
+            // Get book count
+            lblBookCount.Text = Convert.ToString(Book.GetBookCountAll());
         }
 
         // Method that logs out current user when button is pressed

@@ -51,6 +51,15 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Label lblLibrary;
 
         /// <summary>
+        /// lblBookCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBookCount;
+
+        /// <summary>
         /// gvLibrary control.
         /// </summary>
         /// <remarks>
@@ -159,6 +168,60 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Label lblInvalidLanguage;
 
         /// <summary>
+        /// tbFilterAuthor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbFilterAuthor;
+
+        /// <summary>
+        /// btnFilterAuthor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFilterAuthor;
+
+        /// <summary>
+        /// lblInvalidAuthor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvalidAuthor;
+
+        /// <summary>
+        /// tbFilterClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbFilterClass;
+
+        /// <summary>
+        /// btnFilterClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFilterClass;
+
+        /// <summary>
+        /// lblInvalidClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvalidClass;
+
+        /// <summary>
         /// lblCheckOutBook control.
         /// </summary>
         /// <remarks>
@@ -186,6 +249,15 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Button btnCheckOutBook;
 
         /// <summary>
+        /// lblInvalidBookID2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvalidBookID2;
+
+        /// <summary>
         /// lblReturnBook control.
         /// </summary>
         /// <remarks>
@@ -211,6 +283,15 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnReturnBook;
+
+        /// <summary>
+        /// lblInvalidBookID3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvalidBookID3;
 
         /// <summary>
         /// lblCheckedOutBooks control.

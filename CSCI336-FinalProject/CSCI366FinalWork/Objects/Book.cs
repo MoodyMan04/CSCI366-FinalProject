@@ -17,7 +17,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         /// fetches all books
         /// </summary>
         /// <returns> a list of all books </returns>
-        public static List<Book> GetBooksAll() // UNTESTED
+        public static List<Book> GetBooksAll()
         {
             try
             {
@@ -64,7 +64,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         /// </summary>
         /// <param name="id"> id of book</param>
         /// <returns> new Book objects </returns>
-        public static List<Book> GetBookById(int Book_id) // UNTESTED
+        public static List<Book> GetBookById(int Book_id)
         {
             try
             {
@@ -126,9 +126,9 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 conn.Open();
 
                 // Make command for db
-                string query = "SELECT * FROM books WHERE title = @title";
+                string query = "SELECT * FROM books WHERE title ILIKE @title";
                 NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@title", title);
+                cmd.Parameters.AddWithValue("@title", '%' + title + '%');
                 cmd.Prepare();
 
                 List<Book> books = new List<Book>();
@@ -169,9 +169,9 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlConnection conn = DatabaseManager.GetConnection();
                 conn.Open();
 
-                string query = "SELECT * FROM books WHERE dev_language = @lang";
+                string query = "SELECT * FROM books WHERE dev_language ILIKE @lang";
                 NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@lang", language);
+                cmd.Parameters.AddWithValue("@lang", '%' + language + '%');
                 cmd.Prepare();
 
                 List<Book> books = new List<Book>();
@@ -209,7 +209,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlConnection conn = DatabaseManager.GetConnection();
                 conn.Open();
 
-                string query = "SELECT COUNT(*)";
+                string query = "SELECT COUNT(*) FROM books";
 
                 NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
                 long count = (long)cmd.ExecuteScalar();
