@@ -78,6 +78,33 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Label lblFilter;
 
         /// <summary>
+        /// tbFilterBookID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbFilterBookID;
+
+        /// <summary>
+        /// btnFilterBookID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFilterBookID;
+
+        /// <summary>
+        /// lblInvalidBookID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvalidBookID;
+
+        /// <summary>
         /// tbFilterTitle control.
         /// </summary>
         /// <remarks>
@@ -96,6 +123,15 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Button btnFilterTitle;
 
         /// <summary>
+        /// lblInvalidTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvalidTitle;
+
+        /// <summary>
         /// tbFilterLanguage control.
         /// </summary>
         /// <remarks>
@@ -112,6 +148,15 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnFilterLanguage;
+
+        /// <summary>
+        /// lblInvalidLanguage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvalidLanguage;
 
         /// <summary>
         /// lblCheckOutBook control.

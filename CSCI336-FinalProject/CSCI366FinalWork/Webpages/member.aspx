@@ -31,7 +31,8 @@
         <tr>
             <td style="width: 506px">Display All:</td>
             <td>
-                <asp:Button ID="btnDisplayAll" runat="server" Text="Display All" />
+                <asp:Button ID="btnDisplayAll" runat="server" OnClick="btnDisplayAll_Click" Text="Display All" />
+                <br />
             </td>
             <td>&nbsp;</td>
         </tr>
@@ -39,6 +40,19 @@
     <br />
     <asp:Label ID="lblFilter" runat="server" Font-Bold="True" Font-Size="Large" Text="Filters:"></asp:Label>
     <br />
+    <table style="width:100%;">
+        <tr>
+            <td style="width: 211px">Book ID:</td>
+            <td style="width: 295px">
+                <asp:TextBox ID="tbFilterBookID" runat="server" style="margin-left: 4"></asp:TextBox>
+            </td>
+            <td>
+                <asp:Button ID="btnFilterBookID" runat="server" OnClick="btnFilterBookID_Click" Text="Filter By Book ID" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="lblInvalidBookID" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>
+            </td>
+        </tr>
+    </table>
 &nbsp;<table style="width:100%;">
         <tr>
             <td style="height: 43px; width: 211px">Title:</td>
@@ -46,16 +60,20 @@
                 <asp:TextBox ID="tbFilterTitle" runat="server"></asp:TextBox>
             </td>
             <td style="height: 43px">
-                <asp:Button ID="btnFilterTitle" runat="server" Text="Filter By Title" />
+                <asp:Button ID="btnFilterTitle" runat="server" OnClick="btnFilterTitle_Click" Text="Filter By Title" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="lblInvalidTitle" runat="server" ForeColor="Red" Text="Invalid Title" Visible="False"></asp:Label>
             </td>
         </tr>
         <tr>
-            <td style="width: 211px">Language:</td>
-            <td style="width: 295px">
+            <td style="width: 211px; height: 43px">Language:</td>
+            <td style="width: 295px; height: 43px">
                 <asp:TextBox ID="tbFilterLanguage" runat="server"></asp:TextBox>
             </td>
-            <td>
-                <asp:Button ID="btnFilterLanguage" runat="server" Text="Filter By Language" />
+            <td style="height: 43px">
+                <asp:Button ID="btnFilterLanguage" runat="server" OnClick="btnFilterLanguage_Click" Text="Filter By Language" />
+&nbsp;&nbsp;&nbsp;
+                <asp:Label ID="lblInvalidLanguage" runat="server" ForeColor="Red" Text="Invalid Language" Visible="False"></asp:Label>
             </td>
         </tr>
     </table>
