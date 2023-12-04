@@ -89,7 +89,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         }
 
         /// <summary>
-        /// fectehs all books by title
+        /// fetches all books by title
         /// </summary>
         /// <param name="title"> title of book </param>
         /// <returns> a list of book objects </returns>
