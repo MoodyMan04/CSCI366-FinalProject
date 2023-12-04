@@ -131,8 +131,7 @@
             </td>
             <td style="height: 43px">
                 <asp:Button ID="btnReturnBook" runat="server" Text="Check Out Book" />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="lblInvalidBookID3" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="lblInvalidBookID3" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>
             </td>
         </tr>
     </table>
@@ -152,4 +151,70 @@
         <SortedDescendingCellStyle BackColor="#E9EBEF" />
         <SortedDescendingHeaderStyle BackColor="#4870BE" />
     </asp:GridView>
+    <br />
+    <asp:Label ID="lblUdpateUserInfo" runat="server" Font-Bold="True" Font-Size="Large" Text="Update User Info:"></asp:Label>
+    <br />
+    Current User Info:<br />
+    <asp:GridView ID="gvCurrentUserInfo" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+        <AlternatingRowStyle BackColor="White" />
+        <EditRowStyle BackColor="#2461BF" />
+        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+        <RowStyle BackColor="#EFF3FB" />
+        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+        <SortedDescendingHeaderStyle BackColor="#4870BE" />
+    </asp:GridView>
+    <table style="width:100%;">
+        <tr>
+            <td style="height: 29px; width: 299px">First Name:</td>
+            <td style="height: 29px; width: 306px">
+                <asp:TextBox ID="tbUserFirstname" runat="server"></asp:TextBox>
+            </td>
+            <td style="height: 29px"></td>
+        </tr>
+        <tr>
+            <td style="width: 299px">Last Name:</td>
+            <td style="width: 306px">
+                <asp:TextBox ID="tbUserLastname" runat="server"></asp:TextBox>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width: 299px">Email:</td>
+            <td style="width: 306px">
+                <asp:TextBox ID="tbUserEmail" runat="server"></asp:TextBox>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+    <table style="width:100%;">
+        <tr>
+            <td style="width: 298px">Username:</td>
+            <td>
+                <asp:TextBox ID="tbUserUsername" runat="server"></asp:TextBox>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width: 298px">Password:</td>
+            <td>
+                <asp:TextBox ID="tbUserPassword" runat="server"></asp:TextBox>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width: 298px">
+                <asp:Button ID="btnUpdateUserInfo" runat="server" Text="Update Info" />
+            </td>
+            <td>
+                <asp:Label ID="lblInvalidInfo" runat="server" Font-Bold="False" ForeColor="Red" Text="Invalid Info" Visible="False"></asp:Label>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+    <br />
 </asp:Content>
