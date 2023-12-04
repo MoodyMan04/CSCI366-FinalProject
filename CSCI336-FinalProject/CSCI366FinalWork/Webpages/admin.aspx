@@ -490,7 +490,8 @@
             <td>
                 <asp:Label ID="lblAuthoredByInfo" runat="server" Font-Bold="True" Text="Authored By Info:"></asp:Label>
                 <br />
-                Author ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <asp:TextBox ID="tbAuthorByAuthorID" runat="server"></asp:TextBox>
+                Author ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:TextBox ID="tbAuthorByAuthorID" runat="server"></asp:TextBox>
                 <br />
                 Book ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbAuthoredByBookID" runat="server"></asp:TextBox>
@@ -506,9 +507,19 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 602px">&nbsp;</td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
     </table>
+    <asp:Label ID="lblReturnDate" runat="server" Font-Bold="True" Font-Size="Large" Text="Set Current Return Date:"></asp:Label>
+    <br />
+    Current Return Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:Label ID="lblCurrentReturnDate" runat="server" Text="Label"></asp:Label>
+    <br />
+    <asp:TextBox ID="tbReturnDate" runat="server"></asp:TextBox>
+&nbsp;&nbsp;
+    <br />
+    <asp:Button ID="btnSetReturnDate" runat="server" Text="Set Return Date" />
+&nbsp;&nbsp;&nbsp;
+    <asp:Label ID="lblInvalidReturnDate" runat="server" ForeColor="Red" Text="Invalid Return Date" Visible="False"></asp:Label>
+    <br />
 </asp:Content>

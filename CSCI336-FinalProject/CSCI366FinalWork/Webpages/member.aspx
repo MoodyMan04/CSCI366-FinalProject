@@ -17,6 +17,9 @@
     <br />
     Total Library Book Count:
     <asp:Label ID="lblBookCount" runat="server" Font-Bold="True" ForeColor="Blue" Text="count"></asp:Label>
+&nbsp;<br />
+    Current Return Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:Label ID="lblReturnDate" runat="server" Font-Bold="True" ForeColor="Red" Text="return_date"></asp:Label>
 &nbsp;<asp:GridView ID="gvLibrary" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowDataBound="gvLibrary_RowDataBound" Width="674px">
         <AlternatingRowStyle BackColor="White" />
         <EditRowStyle BackColor="#2461BF" />

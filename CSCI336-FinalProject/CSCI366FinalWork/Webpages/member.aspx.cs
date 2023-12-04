@@ -19,6 +19,9 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
 
             // Get book count
             lblBookCount.Text = Convert.ToString(Book.GetBookCountAll());
+
+            // Get return date
+            lblReturnDate.Text = Convert.ToString(Book.return_date);
         }
 
         // Method that logs out current user when button is pressed

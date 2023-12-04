@@ -60,6 +60,15 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Label lblBookCount;
 
         /// <summary>
+        /// lblReturnDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblReturnDate;
+
+        /// <summary>
         /// gvLibrary control.
         /// </summary>
         /// <remarks>

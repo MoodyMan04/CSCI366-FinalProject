@@ -13,6 +13,9 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         public string dev_language { get; private set; }
         public DateTime date_published { get; private set; }
 
+        // Static variable for return date (NOT IN DB)
+        public static DateTime return_date { get; set; } = new DateTime(2023, 12, 15, 17, 00, 00);
+
         /// <summary>  
         /// fetches all books
         /// </summary>
