@@ -13,42 +13,53 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         public string dev_language { get; private set; }
         public DateTime date_published { get; private set; }
 
+        // Static variable for return date (NOT IN DB)
+        public static DateTime return_date { get; set; } = new DateTime(2023, 12, 15, 17, 00, 00);
+
         /// <summary>  
         /// fetches all books
         /// </summary>
         /// <returns> a list of all books </returns>
-        public static List<Book> GetBooksAll() // UNTESTED
+        public static List<Book> GetBooksAll()
         {
-            // Get db connection
-            NpgsqlConnection conn = DatabaseManager.GetConnection();
-
-            // Open connection to db
-            conn.Open();
-
-            // Make command for db
-            NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM books ORDER BY title", conn);
-
-            // Run command and make list of books
-            List<Book> books = new List<Book>();
-
-            NpgsqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                Book book = new Book();
-                book.Book_id = Convert.ToInt32(reader["Book_id"]);
-                book.title = Convert.ToString(reader["title"]);
-                book.publisher = Convert.ToString(reader["publisher"]);
-                book.dev_language = Convert.ToString(reader["dev_language"]);
-                book.date_published = Convert.ToDateTime(reader["date_published"]);
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
 
-                books.Add(book);
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM books", conn);
+
+                // Run command and make list of books
+                List<Book> books = new List<Book>();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Book book = new Book();
+                    book.Book_id = Convert.ToInt32(reader["Book_id"]);
+                    book.title = Convert.ToString(reader["title"]);
+                    book.publisher = Convert.ToString(reader["publisher"]);
+                    book.dev_language = Convert.ToString(reader["dev_language"]);
+                    book.date_published = Convert.ToDateTime(reader["date_published"]);
+
+                    books.Add(book);
+                }
+
+                // Close db connection
+                conn.Close();
+
+                // Return list of books
+                return books;
             }
-
-            // Close db connection
-            conn.Close();
-
-            // Return list of books
-            return books;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+            
         }
 
         /// <summary>
@@ -56,76 +67,97 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         /// </summary>
         /// <param name="id"> id of book</param>
         /// <returns> new Book objects </returns>
-        public static Book GetBookById(int Book_id) // UNTESTED
+        public static List<Book> GetBookById(int Book_id)
         {
-            // Get db connection
-            NpgsqlConnection conn = DatabaseManager.GetConnection();
+            try
+            {
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
 
-            // Open connection to db
-            conn.Open();
+                // Open connection to db
+                conn.Open();
 
-            // Make command for db
-            string query = "SELECT * FROM books WHERE Book_id = @Book_id";
-            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@Book_id", Book_id);
-            cmd.Prepare();
+                // Make command for db
+                string query = "SELECT * FROM books WHERE Book_id = @Book_id";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Book_id", Book_id);
+                cmd.Prepare();
 
-            // Get data out of command and get book object
-            NpgsqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
+                // Get data out of command and get book object
+                NpgsqlDataReader reader = cmd.ExecuteReader();
 
-            Book book = new Book();
-            book.Book_id = Convert.ToInt32(reader["Book_id"]);
-            book.title = Convert.ToString(reader["title"]);
-            book.publisher = Convert.ToString(reader["publisher"]);
-            book.dev_language = Convert.ToString(reader["dev_language"]);
-            book.date_published = Convert.ToDateTime(reader["date_published"]);
+                List<Book> books = new List<Book>();
 
-            // Close connection to db
-            conn.Close();
+                while (reader.Read())
+                {
+                    Book book = new Book();
+                    book.Book_id = Convert.ToInt32(reader["Book_id"]);
+                    book.title = Convert.ToString(reader["title"]);
+                    book.publisher = Convert.ToString(reader["publisher"]);
+                    book.dev_language = Convert.ToString(reader["dev_language"]);
+                    book.date_published = Convert.ToDateTime(reader["date_published"]);
 
-            // Return book
-            return book;
+                    books.Add(book);
+                }
+
+                // Close connection to db
+                conn.Close();
+
+                // Return book
+                return books;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+            
         }
 
         /// <summary>
-        /// fectehs all books by title
+        /// fetches all books by title
         /// </summary>
         /// <param name="title"> title of book </param>
         /// <returns> a list of book objects </returns>
         public static List<Book> GetBookByTitle(string title)
         {
-            // Get db connection
-            NpgsqlConnection conn = DatabaseManager.GetConnection();
-
-            // Open connection to db
-            conn.Open();
-
-            // Make command for db
-            string query = "SELECT * FROM books WHERE title = @title";
-            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-            cmd.Parameters.AddWithValue($"title={title}");
-            cmd.Prepare();
-
-            List<Book> books = new List<Book>();
-
-            NpgsqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-
-            while (reader.Read())
+            try
             {
-                Book book = new Book();
-                book.Book_id = Convert.ToInt32(reader["Book_id"]);
-                book.title = Convert.ToString(reader["title"]);
-                book.publisher = Convert.ToString(reader["publisher"]);
-                book.dev_language = Convert.ToString(reader["dev_language"]);
-                book.date_published = Convert.ToDateTime(reader["date_published"]);
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
 
-                books.Add(book);
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                string query = "SELECT * FROM books WHERE title ILIKE @title";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@title", '%' + title + '%');
+                cmd.Prepare();
+
+                List<Book> books = new List<Book>();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = new Book();
+                    book.Book_id = Convert.ToInt32(reader["Book_id"]);
+                    book.title = Convert.ToString(reader["title"]);
+                    book.publisher = Convert.ToString(reader["publisher"]);
+                    book.dev_language = Convert.ToString(reader["dev_language"]);
+                    book.date_published = Convert.ToDateTime(reader["date_published"]);
+
+                    books.Add(book);
+                }
+                conn.Close();
+
+                return books;
             }
-            conn.Close();
-
-            return books;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+            
         }
 
         /// <summary>
@@ -135,29 +167,38 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         /// <returns> a list of book objects </returns>
         public static List<Book> GetBookByLanguage(String language)
         {
-            NpgsqlConnection conn = DatabaseManager.GetConnection();
-            conn.Open();
-
-            string query = "SELECT * FROM books WHERE dev_language = @lang";
-            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@lang", language);
-            cmd.Prepare();
-
-            List<Book> books = new List<Book>();
-            NpgsqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                Book book = new Book();
-                book.Book_id = Convert.ToInt32(reader["Book_id"]);
-                book.title = Convert.ToString(reader["title"]);
-                book.publisher = Convert.ToString(reader["publisher"]);
-                book.dev_language = Convert.ToString(reader["dev_language"]);
-                book.date_published = Convert.ToDateTime(reader["date_published"]);
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
 
-                books.Add(book);
+                string query = "SELECT * FROM books WHERE dev_language ILIKE @lang";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@lang", '%' + language + '%');
+                cmd.Prepare();
+
+                List<Book> books = new List<Book>();
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = new Book();
+                    book.Book_id = Convert.ToInt32(reader["Book_id"]);
+                    book.title = Convert.ToString(reader["title"]);
+                    book.publisher = Convert.ToString(reader["publisher"]);
+                    book.dev_language = Convert.ToString(reader["dev_language"]);
+                    book.date_published = Convert.ToDateTime(reader["date_published"]);
+
+                    books.Add(book);
+                }
+                conn.Close();
+                return books;
             }
-            conn.Close();
-            return books;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+            
         }
 
         /// <summary>
@@ -166,15 +207,23 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         /// <returns> int </returns>
         public static long GetBookCountAll()
         {
-            NpgsqlConnection conn = DatabaseManager.GetConnection();
-            conn.Open();
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
 
-            string query = "SELECT COUNT(*)";
+                string query = "SELECT COUNT(*) FROM books";
 
-            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-            long count = (long)cmd.ExecuteScalar();
-            conn.Close();
-            return count;
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                long count = (long)cmd.ExecuteScalar();
+                conn.Close();
+                return count;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+            
         }
 
         /// <summary>
@@ -185,19 +234,27 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         /// <param name="req"> a boolean to specify if the book is required </param>
         public static void AddClassRequirement(int bookid, int classid, Boolean req)
         {
-            NpgsqlConnection conn = DatabaseManager.GetConnection();
-            conn.Open();
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
 
-            string query = "INSERT INTO asscoiatedwith (class_id, book_id, is_required) VALUES(@bookid, @classid, @req)";
+                string query = "INSERT INTO asscoiatedwith (class_id, book_id, is_required) VALUES(@bookid, @classid, @req)";
 
-            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@bookid", bookid);
-            cmd.Parameters.AddWithValue("@classid", classid);
-            cmd.Parameters.AddWithValue("@req", req);
-            cmd.Prepare();
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@bookid", bookid);
+                cmd.Parameters.AddWithValue("@classid", classid);
+                cmd.Parameters.AddWithValue("@req", req);
+                cmd.Prepare();
 
-            cmd.ExecuteNonQuery();
-            conn.Close();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+            
         }
     }
 }
