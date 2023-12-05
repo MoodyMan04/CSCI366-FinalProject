@@ -513,7 +513,7 @@
     <asp:Label ID="lblReturnDate" runat="server" Font-Bold="True" Font-Size="Large" Text="Set Current Return Date:"></asp:Label>
     <br />
     Current Return Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Label ID="lblCurrentReturnDate" runat="server" Text="Label"></asp:Label>
+    <asp:Label ID="lblCurrentReturnDate" runat="server" Text="Label" Font-Bold="True" ForeColor="Red"></asp:Label>
     <br />
     <asp:TextBox ID="tbReturnDate" runat="server"></asp:TextBox>
 &nbsp;&nbsp;
