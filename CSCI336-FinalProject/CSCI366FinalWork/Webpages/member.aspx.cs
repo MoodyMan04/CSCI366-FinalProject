@@ -17,6 +17,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             gvLibrary.DataSource = Book.GetBooksAll();
             gvLibrary.DataBind();
 
+            // Load grid view user info with current user info
+            gvCurrentUserInfo.DataSource = Users.GetCurrentUser(Page.User.Identity.Name);
+            gvCurrentUserInfo.DataBind();
+
             // Get book count
             lblBookCount.Text = Convert.ToString(Book.GetBookCountAll());
 
@@ -31,7 +35,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             Response.Redirect("logon.aspx", true);
         }
 
-        // Method to change headers of grid view library (Automatically Ran when grid view library is data bound)
+        // Method to change headers of grid view library (Automatically ran when grid view library is data bound)
         protected void gvLibrary_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Header)
@@ -41,6 +45,21 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
                 e.Row.Cells[2].Text = "Publisher";
                 e.Row.Cells[3].Text = "Language";
                 e.Row.Cells[4].Text = "Date Published";
+            }
+        }
+
+        // Method to change headers of grid view current user info (Automatically ran when grid view library is data bound)
+        protected void gvCurrentUserInfo_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                e.Row.Cells[0].Text = "----";
+                e.Row.Cells[1].Text = "First Name";
+                e.Row.Cells[2].Text = "Last Name";
+                e.Row.Cells[3].Text = "Admin?";
+                e.Row.Cells[4].Text = "Email";
+                e.Row.Cells[5].Text = "Username";
+                e.Row.Cells[6].Text = "Password";
             }
         }
 
@@ -96,5 +115,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
                 lblInvalidLanguage.Visible = true;
             }
         }
+
+        
     }
 }

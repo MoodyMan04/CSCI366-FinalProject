@@ -358,7 +358,7 @@
         </tr>
         <tr>
             <td style="width: 593px">
-                <asp:RadioButton ID="rbCurrentlyCheckedOut" runat="server" Text="Only Show Currently Checked Out Books" />
+                <asp:CheckBox ID="cbDisplayCheckedOutBooks" runat="server" Text="Display only currently checked out books" />
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -465,14 +465,14 @@
     <br />
     <table style="width:100%;">
         <tr>
-            <td style="width: 602px">
+            <td style="width: 592px">
                 <asp:Label ID="lblAuthorBy" runat="server" Font-Bold="True" Font-Size="Large" Text="Authored By:"></asp:Label>
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 602px">
+            <td style="width: 592px">
                 <asp:GridView ID="gvAuthoredBy" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
                     <AlternatingRowStyle BackColor="White" />
                     <EditRowStyle BackColor="#2461BF" />
@@ -507,7 +507,7 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
+            <td style="width: 592px">&nbsp;</td>
         </tr>
     </table>
     <asp:Label ID="lblReturnDate" runat="server" Font-Bold="True" Font-Size="Large" Text="Set Current Return Date:"></asp:Label>
@@ -518,7 +518,7 @@
     <asp:TextBox ID="tbReturnDate" runat="server"></asp:TextBox>
 &nbsp;&nbsp;
     <br />
-    <asp:Button ID="btnSetReturnDate" runat="server" Text="Set Return Date" />
+    <asp:Button ID="btnSetReturnDate" runat="server" Text="Set Return Date" OnClick="btnSetReturnDate_Click" />
 &nbsp;&nbsp;&nbsp;
     <asp:Label ID="lblInvalidReturnDate" runat="server" ForeColor="Red" Text="Invalid Return Date" Visible="False"></asp:Label>
     <br />

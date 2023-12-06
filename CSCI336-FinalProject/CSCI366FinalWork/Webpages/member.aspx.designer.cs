@@ -375,13 +375,22 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.TextBox tbUserUsername;
 
         /// <summary>
-        /// tbUserPassword control.
+        /// tbUserCurrentPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbUserPassword;
+        protected global::System.Web.UI.WebControls.TextBox tbUserCurrentPassword;
+
+        /// <summary>
+        /// tbUserNewPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbUserNewPassword;
 
         /// <summary>
         /// btnUpdateUserInfo control.

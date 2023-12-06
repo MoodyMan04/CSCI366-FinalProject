@@ -59,7 +59,121 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
-            
+        }
+
+        // Method for returning list of everything in the checked out table
+        public static List<(int, int, bool, DateTime)> GetCheckedOutAll()
+        {
+            try
+            {
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM checkedout", conn);
+
+                // Run command and make list of all checked books and their values
+                List<(int, int, bool, DateTime)>  checkedOutBooks = new List<(int, int, bool, DateTime)>();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    (int, int, bool, DateTime) checkedOutBook = (Convert.ToInt32(reader["User_id"]),
+                        Convert.ToInt32(reader["Book_id"]), Convert.ToBoolean(reader["is_checkedout"]),
+                        Convert.ToDateTime(reader["checked_out_time"]));
+
+                    checkedOutBooks.Add(checkedOutBook);
+                }
+
+                // Close db connection
+                conn.Close();
+
+                // Return list of books
+                return checkedOutBooks;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for returning list of everything in the associated with table
+        public static List<(int, int, bool)> GetAssociatedWithAll()
+        {
+            try
+            {
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM asscoiatedwith", conn);
+
+                // Run command and make list of all associated with connections and their values
+                List<(int, int, bool)> associatedWithLinks = new List<(int, int, bool)>();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    (int, int, bool) associatedWithLink = (Convert.ToInt32(reader["Class_id"]),
+                        Convert.ToInt32(reader["Book_id"]), Convert.ToBoolean(reader["is_required"]));
+
+                    associatedWithLinks.Add(associatedWithLink);
+                }
+
+                // Close db connection
+                conn.Close();
+
+                // Return list of associated with connections
+                return associatedWithLinks;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for returning list of everything from the authored by table
+        public static List<(int, int)> GetAuthoredByAll()
+        {
+            try
+            {
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM authoredby", conn);
+
+                // Run command and make list of all authored by connections and their values
+                List<(int, int)> authoredByLinks = new List<(int, int)>();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    (int, int) authoredByLink = (Convert.ToInt32(reader["Author_id"]),
+                        Convert.ToInt32(reader["Book_id"]));
+
+                    authoredByLinks.Add(authoredByLink);
+                }
+
+                // Close db connection
+                conn.Close();
+
+                // Return list of authored by connections
+                return authoredByLinks;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         /// <summary>
@@ -110,7 +224,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
-            
         }
 
         /// <summary>
@@ -232,7 +345,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         /// <param name="bookid"> id of book </param>
         /// <param name="classid"> id of class </param>
         /// <param name="req"> a boolean to specify if the book is required </param>
-        public static void AddClassRequirement(int bookid, int classid, Boolean req)
+        public static void AddClassRequirement(int bookid, int classid, bool req)
         {
             try
             {
