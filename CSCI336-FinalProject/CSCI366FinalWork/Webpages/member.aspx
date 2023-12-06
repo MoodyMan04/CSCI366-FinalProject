@@ -85,11 +85,11 @@
     </table>
     <table style="width:100%;">
         <tr>
-            <td style="width: 209px">Author:</td>
-            <td style="width: 297px">
+            <td style="width: 209px; height: 49px;">Author (lastname):</td>
+            <td style="width: 297px; height: 49px;">
                 <asp:TextBox ID="tbFilterAuthor" runat="server"></asp:TextBox>
             </td>
-            <td>
+            <td style="height: 49px">
                 <asp:Button ID="btnFilterAuthor" runat="server" Text="Filter By Author" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAuthor" runat="server" ForeColor="Red" Text="Invalid Author" Visible="False"></asp:Label>
@@ -107,6 +107,7 @@
             </td>
         </tr>
     </table>
+    (class name will be class designation - number ex: CSCI-160)<br />
     <br />
     <asp:Label ID="lblCheckOutBook" runat="server" Font-Bold="True" Font-Size="Large" Text="Check Out Book:"></asp:Label>
     <br />
@@ -158,7 +159,7 @@
     <asp:Label ID="lblUdpateUserInfo" runat="server" Font-Bold="True" Font-Size="Large" Text="Update User Info:"></asp:Label>
     <br />
     Current User Info:<br />
-    <asp:GridView ID="gvCurrentUserInfo" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+    <asp:GridView ID="gvCurrentUserInfo" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowDataBound="gvCurrentUserInfo_RowDataBound">
         <AlternatingRowStyle BackColor="White" />
         <EditRowStyle BackColor="#2461BF" />
         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -197,25 +198,45 @@
     <table style="width:100%;">
         <tr>
             <td style="width: 298px">Username:</td>
-            <td>
+            <td style="width: 307px">
                 <asp:TextBox ID="tbUserUsername" runat="server"></asp:TextBox>
             </td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 298px">Password:</td>
-            <td>
-                <asp:TextBox ID="tbUserPassword" runat="server"></asp:TextBox>
+            <td style="width: 298px">Current Password:</td>
+            <td style="width: 307px">
+                <asp:TextBox ID="tbUserCurrentPassword" runat="server"></asp:TextBox>
             </td>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td style="width: 298px">
+                New Password:</td>
+            <td style="width: 307px">
+                <asp:TextBox ID="tbUserNewPassword" runat="server"></asp:TextBox>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+    <table style="width:100%;">
+        <tr>
+            <td style="width: 299px">
                 <asp:Button ID="btnUpdateUserInfo" runat="server" Text="Update Info" />
             </td>
-            <td>
+            <td style="width: 306px">
                 <asp:Label ID="lblInvalidInfo" runat="server" Font-Bold="False" ForeColor="Red" Text="Invalid Info" Visible="False"></asp:Label>
             </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width: 299px">&nbsp;</td>
+            <td style="width: 306px">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="width: 299px">&nbsp;</td>
+            <td style="width: 306px">&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
     </table>

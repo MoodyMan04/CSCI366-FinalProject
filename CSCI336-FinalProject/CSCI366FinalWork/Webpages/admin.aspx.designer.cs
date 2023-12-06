@@ -591,13 +591,13 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.GridView gvAssociatedWith;
 
         /// <summary>
-        /// rbCurrentlyCheckedOut control.
+        /// cbDisplayCheckedOutBooks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbCurrentlyCheckedOut;
+        protected global::System.Web.UI.WebControls.CheckBox cbDisplayCheckedOutBooks;
 
         /// <summary>
         /// lblCheckedOutInfo control.
