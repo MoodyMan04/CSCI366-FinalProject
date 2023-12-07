@@ -13,8 +13,42 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         public string dev_language { get; private set; }
         public DateTime date_published { get; private set; }
 
+        // Constructor method
+        public Book(int book_id, string title, string publisher, string dev_language, DateTime date_published)
+        {
+            Book_id = book_id;
+            this.title = title;
+            this.publisher = publisher;
+            this.dev_language = dev_language;
+            this.date_published = date_published;
+        }
+
         // Static variable for return date (NOT IN DB)
         public static DateTime return_date { get; set; } = new DateTime(2023, 12, 15, 17, 00, 00);
+
+        // Struct for checked out table
+        public struct CheckedOut
+        {
+            public int user_id { get; set; }
+            public int book_id { get; set; }
+            public bool is_checkedout { get; set; }
+            public DateTime checked_out_time { get; set; }
+        }
+
+        // Struct for associated with table
+        public struct AssociatedWith
+        {
+            public int class_id { get; set; }
+            public int book_id { get; set; }
+            public bool is_required { get; set; }
+        }
+
+        // Struct for authored by table
+        public struct AuthoredBy
+        {
+            public int author_id { get; set; }
+            public int book_id { get; set; }
+        }
 
         /// <summary>  
         /// fetches all books
@@ -39,12 +73,11 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Book book = new Book();
-                    book.Book_id = Convert.ToInt32(reader["Book_id"]);
-                    book.title = Convert.ToString(reader["title"]);
-                    book.publisher = Convert.ToString(reader["publisher"]);
-                    book.dev_language = Convert.ToString(reader["dev_language"]);
-                    book.date_published = Convert.ToDateTime(reader["date_published"]);
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]), 
+                        Convert.ToString(reader["title"]),
+                        Convert.ToString(reader["publisher"]), 
+                        Convert.ToString(reader["dev_language"]), 
+                        Convert.ToDateTime(reader["date_published"]));
 
                     books.Add(book);
                 }
@@ -62,7 +95,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         }
 
         // Method for returning list of everything in the checked out table
-        public static List<(int, int, bool, DateTime)> GetCheckedOutAll()
+        public static List<CheckedOut> GetCheckedOutAll()
         {
             try
             {
@@ -76,14 +109,16 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM checkedout", conn);
 
                 // Run command and make list of all checked books and their values
-                List<(int, int, bool, DateTime)>  checkedOutBooks = new List<(int, int, bool, DateTime)>();
+                List<CheckedOut>  checkedOutBooks = new List<CheckedOut>();
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    (int, int, bool, DateTime) checkedOutBook = (Convert.ToInt32(reader["User_id"]),
-                        Convert.ToInt32(reader["Book_id"]), Convert.ToBoolean(reader["is_checkedout"]),
-                        Convert.ToDateTime(reader["checked_out_time"]));
+                    CheckedOut checkedOutBook = new CheckedOut();
+                    checkedOutBook.user_id = Convert.ToInt32(reader["User_id"]);
+                    checkedOutBook.book_id = Convert.ToInt32(reader["Book_id"]);
+                    checkedOutBook.is_checkedout = Convert.ToBoolean(reader["is_checkedout"]);
+                    checkedOutBook.checked_out_time = Convert.ToDateTime(reader["checked_out_time"]);
 
                     checkedOutBooks.Add(checkedOutBook);
                 }
@@ -101,7 +136,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         }
 
         // Method for returning list of everything in the associated with table
-        public static List<(int, int, bool)> GetAssociatedWithAll()
+        public static List<AssociatedWith> GetAssociatedWithAll()
         {
             try
             {
@@ -115,13 +150,15 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM asscoiatedwith", conn);
 
                 // Run command and make list of all associated with connections and their values
-                List<(int, int, bool)> associatedWithLinks = new List<(int, int, bool)>();
+                List<AssociatedWith> associatedWithLinks = new List<AssociatedWith>();
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    (int, int, bool) associatedWithLink = (Convert.ToInt32(reader["Class_id"]),
-                        Convert.ToInt32(reader["Book_id"]), Convert.ToBoolean(reader["is_required"]));
+                    AssociatedWith associatedWithLink = new AssociatedWith();
+                    associatedWithLink.class_id = Convert.ToInt32(reader["Class_id"]);
+                    associatedWithLink.book_id = Convert.ToInt32(reader["Book_id"]);
+                    associatedWithLink.is_required = Convert.ToBoolean(reader["is_required"]);
 
                     associatedWithLinks.Add(associatedWithLink);
                 }
@@ -139,7 +176,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         }
 
         // Method for returning list of everything from the authored by table
-        public static List<(int, int)> GetAuthoredByAll()
+        public static List<AuthoredBy> GetAuthoredByAll()
         {
             try
             {
@@ -153,13 +190,14 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM authoredby", conn);
 
                 // Run command and make list of all authored by connections and their values
-                List<(int, int)> authoredByLinks = new List<(int, int)>();
+                List<AuthoredBy> authoredByLinks = new List<AuthoredBy>();
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    (int, int) authoredByLink = (Convert.ToInt32(reader["Author_id"]),
-                        Convert.ToInt32(reader["Book_id"]));
+                    AuthoredBy authoredByLink = new AuthoredBy();
+                    authoredByLink.author_id = Convert.ToInt32(reader["Author_id"]);
+                    authoredByLink.book_id = Convert.ToInt32(reader["Book_id"]);
 
                     authoredByLinks.Add(authoredByLink);
                 }
@@ -204,12 +242,11 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
                 while (reader.Read())
                 {
-                    Book book = new Book();
-                    book.Book_id = Convert.ToInt32(reader["Book_id"]);
-                    book.title = Convert.ToString(reader["title"]);
-                    book.publisher = Convert.ToString(reader["publisher"]);
-                    book.dev_language = Convert.ToString(reader["dev_language"]);
-                    book.date_published = Convert.ToDateTime(reader["date_published"]);
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
+                        Convert.ToString(reader["title"]),
+                        Convert.ToString(reader["publisher"]),
+                        Convert.ToString(reader["dev_language"]),
+                        Convert.ToDateTime(reader["date_published"]));
 
                     books.Add(book);
                 }
@@ -253,12 +290,11 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
                 while (reader.Read())
                 {
-                    Book book = new Book();
-                    book.Book_id = Convert.ToInt32(reader["Book_id"]);
-                    book.title = Convert.ToString(reader["title"]);
-                    book.publisher = Convert.ToString(reader["publisher"]);
-                    book.dev_language = Convert.ToString(reader["dev_language"]);
-                    book.date_published = Convert.ToDateTime(reader["date_published"]);
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
+                        Convert.ToString(reader["title"]),
+                        Convert.ToString(reader["publisher"]),
+                        Convert.ToString(reader["dev_language"]),
+                        Convert.ToDateTime(reader["date_published"]));
 
                     books.Add(book);
                 }
@@ -295,12 +331,11 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
                 while (reader.Read())
                 {
-                    Book book = new Book();
-                    book.Book_id = Convert.ToInt32(reader["Book_id"]);
-                    book.title = Convert.ToString(reader["title"]);
-                    book.publisher = Convert.ToString(reader["publisher"]);
-                    book.dev_language = Convert.ToString(reader["dev_language"]);
-                    book.date_published = Convert.ToDateTime(reader["date_published"]);
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
+                         Convert.ToString(reader["title"]),
+                         Convert.ToString(reader["publisher"]),
+                         Convert.ToString(reader["dev_language"]),
+                         Convert.ToDateTime(reader["date_published"]));
 
                     books.Add(book);
                 }
