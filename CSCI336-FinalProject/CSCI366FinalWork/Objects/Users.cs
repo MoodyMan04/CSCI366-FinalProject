@@ -17,6 +17,25 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         public string username { get; private set; }
         public string password { get; private set; }
 
+        // Constructor method
+        public Users(int user_id, string first_name, string last_name, bool is_admin, string email, string username, string password)
+        {
+            User_id = user_id;
+            this.first_name = first_name;
+            this.last_name = last_name;
+            is_Admin = is_Admin;
+            this.email = email;
+            this.username = username;
+            this.password = password;
+        }
+
+        // Constructor method for log in
+        public Users(bool is_admin, string password)
+        {
+            is_Admin = is_admin;
+            this.password = password;
+        }
+
         // SQL Methods
         // REST OF SQL METHODS FOR USER CLASS ADDED HERE
 
@@ -39,9 +58,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             NpgsqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
 
-            Users user = new Users();
-            user.password = Convert.ToString(reader["password"]);
-            user.is_Admin = Convert.ToBoolean(reader["is_Admin"]);
+            Users user = new Users(Convert.ToBoolean(reader["is_Admin"]), Convert.ToString(reader["password"]));
 
             // Close connection
             conn.Close();
@@ -78,14 +95,14 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Users user = new Users();
-                    user.User_id = Convert.ToInt32(reader["User_id"]);
-                    user.first_name = Convert.ToString(reader["first_name"]);
-                    user.last_name = Convert.ToString(reader["last_name"]);
-                    user.is_Admin = Convert.ToBoolean(reader["is_Admin"]);
-                    user.username = Convert.ToString(reader["username"]);
                     // Admin should NOT know everyone's passwords
-                    user.password = "****";
+                    Users user = new Users(Convert.ToInt32(reader["User_id"]),
+                        Convert.ToString(reader["first_name"]),
+                        Convert.ToString(reader["last_name"]),
+                        Convert.ToBoolean(reader["is_Admin"]),
+                        Convert.ToString(reader["email"]),
+                        Convert.ToString(reader["username"]), 
+                        "****");
 
                     users.Add(user);
                 }
@@ -124,16 +141,14 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
                 while (reader.Read())
                 {
-                    Users user = new Users();
-                    // Do not allow current user to see own id
-                    user.User_id = 0;
-                    user.first_name = Convert.ToString(reader["first_name"]);
-                    user.last_name = Convert.ToString(reader["last_name"]);
-                    user.is_Admin = Convert.ToBoolean(reader["is_Admin"]);
-                    user.email = Convert.ToString(reader["email"]);
-                    user.username = Convert.ToString(reader["username"]);
-                    // Do not display current user's password
-                    user.password = "****";
+                    // Do not allow current user to see own id or password
+                    Users user = new Users(0,
+                        Convert.ToString(reader["first_name"]),
+                        Convert.ToString(reader["last_name"]),
+                        Convert.ToBoolean(reader["is_Admin"]),
+                        Convert.ToString(reader["email"]),
+                        Convert.ToString(reader["username"]), 
+                        "****");
 
                     users.Add(user);
                 }

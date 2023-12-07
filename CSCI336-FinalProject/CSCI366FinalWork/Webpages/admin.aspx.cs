@@ -58,66 +58,22 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         // Method for loading checked out grid view
         private void UpdateCheckedOutAllGV()
         {
-            DataTable dt = new DataTable("Checked Out");
-            dt.Columns.Add(new DataColumn("User_id", typeof(int)));
-            dt.Columns.Add(new DataColumn("Book_id", typeof(int)));
-            dt.Columns.Add(new DataColumn("is_checkedout", typeof(bool)));
-            dt.Columns.Add(new DataColumn("checked_out_time", typeof(DateTime)));
-            List<(int, int, bool, DateTime)> checkedOutBooks = Book.GetCheckedOutAll();
-            foreach ((int, int, bool, DateTime) checkedOutBook in checkedOutBooks)
-            {
-                var row = dt.NewRow();
-                row[0] = checkedOutBook.Item1;
-                row[1] = checkedOutBook.Item2;
-                row[2] = checkedOutBook.Item3;
-                row[3] = checkedOutBook.Item4;
-
-                dt.Rows.Add(row);
-            }
-
-            gvCheckedOut.DataSource = dt;
+           
+            gvCheckedOut.DataSource = Book.GetCheckedOutAll();
             gvCheckedOut.DataBind();
         }
 
         // Method for loading associated with grid view
         private void UpdateAssociatedWithGV()
         {
-            DataTable dt = new DataTable("Associated With");
-            dt.Columns.Add(new DataColumn("Class_id", typeof(int)));
-            dt.Columns.Add(new DataColumn("Book_id", typeof(int)));
-            dt.Columns.Add(new DataColumn("is_required", typeof(bool)));
-            List<(int, int, bool)> associatedWithLinks = Book.GetAssociatedWithAll();
-            foreach ((int, int, bool) associatedWithLink in associatedWithLinks)
-            {
-                var row = dt.NewRow();
-                row[0] = associatedWithLink.Item1;
-                row[1] = associatedWithLink.Item2;
-                row[2] = associatedWithLink.Item3;
-
-                dt.Rows.Add(row);
-            }
-
-            gvAssociatedWith.DataSource = dt;
+            gvAssociatedWith.DataSource = Book.GetAssociatedWithAll();
             gvAssociatedWith.DataBind();
         }
 
         // Method for loading authored by with grid view
         private void UpdateAuthoredByGV()
         {
-            DataTable dt = new DataTable("Authored By");
-            dt.Columns.Add(new DataColumn("Author_id", typeof(int)));
-            dt.Columns.Add(new DataColumn("Book_id", typeof(int)));
-            List<(int, int)> authoredByLinks = Book.GetAuthoredByAll();
-            foreach ((int, int) authoredByLink in authoredByLinks)
-            {
-                var row = dt.NewRow();
-                row[0] = authoredByLink.Item1;
-                row[1] = authoredByLink.Item2;
-
-                dt.Rows.Add(row);
-            }
-
-            gvAuthoredBy.DataSource = dt;
+            gvAuthoredBy.DataSource = Book.GetAuthoredByAll();
             gvAuthoredBy.DataBind();
         }
 
