@@ -1,8 +1,6 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 {
@@ -68,8 +66,8 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 if (user.is_Admin)
                     return 2;
-                else 
-                    return 1; 
+                else
+                    return 1;
             }
             else
                 return 0;
@@ -101,7 +99,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                         Convert.ToString(reader["last_name"]),
                         Convert.ToBoolean(reader["is_Admin"]),
                         Convert.ToString(reader["email"]),
-                        Convert.ToString(reader["username"]), 
+                        Convert.ToString(reader["username"]),
                         "****");
 
                     users.Add(user);
@@ -111,6 +109,29 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
                 // Return list of users
                 return users;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        public static int GetCurrentUserId(string username)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "SELECT User_id FROM Users WHERE username = @username";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Prepare();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+
+                return Convert.ToInt32(reader["User_id"]);
             }
             catch (Exception ex)
             {
@@ -147,7 +168,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                         Convert.ToString(reader["last_name"]),
                         Convert.ToBoolean(reader["is_Admin"]),
                         Convert.ToString(reader["email"]),
-                        Convert.ToString(reader["username"]), 
+                        Convert.ToString(reader["username"]),
                         "****");
 
                     users.Add(user);
