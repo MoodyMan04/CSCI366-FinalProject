@@ -83,10 +83,8 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
                 while (reader.Read())
                 {
-                    Class csciclass = new Class();
-                    csciclass.Class_id = Convert.ToInt32(reader["Class_id"]);
-                    csciclass.class_name = Convert.ToString(reader["class_name"]);
-                    csciclass.class_description = Convert.ToString(reader["class_description"]);
+                    Class csciclass = new Class(Convert.ToInt32(reader["Class_id"]), Convert.ToString(reader["class_name"]),
+                        Convert.ToString(reader["class_description"]));
 
                     classes.Add(csciclass);
                 }

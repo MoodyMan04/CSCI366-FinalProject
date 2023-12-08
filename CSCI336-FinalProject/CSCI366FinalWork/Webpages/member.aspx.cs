@@ -21,6 +21,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             gvCurrentUserInfo.DataSource = Users.GetCurrentUser(Page.User.Identity.Name);
             gvCurrentUserInfo.DataBind();
 
+            // Load grid view user currently checked out books
+            gvCheckedOutBooks.DataSource = Book.GetCurrentCheckedOutForUser(Page.User.Identity.Name);
+            gvCheckedOutBooks.DataBind();
+
             // Get book count
             lblBookCount.Text = Convert.ToString(Book.GetBookCountAll());
 

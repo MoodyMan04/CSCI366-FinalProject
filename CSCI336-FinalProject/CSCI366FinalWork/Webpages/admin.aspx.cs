@@ -63,6 +63,13 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             gvCheckedOut.DataBind();
         }
 
+        // Method for loading currently checked out grid view
+        private void UpdateCheckedOutCurrentlyGV()
+        {
+            gvCheckedOut.DataSource = Book.GetCurrentlyCheckedOutAll();
+            gvCheckedOut.DataBind();
+        }
+
         // Method for loading associated with grid view
         private void UpdateAssociatedWithGV()
         {
@@ -102,6 +109,14 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             {
                 lblInvalidReturnDate.Visible = true;
             }
+        }
+
+        protected void cbDisplayCheckedOutBooks_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbDisplayCheckedOutBooks.Checked == true)
+                UpdateCheckedOutCurrentlyGV();
+            else
+                UpdateCheckedOutAllGV();
         }
     }
 }

@@ -108,7 +108,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 // Make command for db
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM checkedout", conn);
 
-                // Run command and make list of all checked books and their values
+                // Run command and make list of all checked out books and their values
                 List<CheckedOut>  checkedOutBooks = new List<CheckedOut>();
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
@@ -119,6 +119,94 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                     checkedOutBook.book_id = Convert.ToInt32(reader["Book_id"]);
                     checkedOutBook.is_checkedout = Convert.ToBoolean(reader["is_checkedout"]);
                     checkedOutBook.checked_out_time = Convert.ToDateTime(reader["checked_out_time"]);
+
+                    checkedOutBooks.Add(checkedOutBook);
+                }
+
+                // Close db connection
+                conn.Close();
+
+                // Return list of books
+                return checkedOutBooks;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for returning list of all currently checked out books and their values
+        public static List<CheckedOut> GetCurrentlyCheckedOutAll()
+        {
+            try
+            {
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM checkedout WHERE is_checkedout = true", conn);
+
+                // Run command and make list of all checked out books and their values
+                List<CheckedOut> checkedOutBooks = new List<CheckedOut>();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    CheckedOut checkedOutBook = new CheckedOut();
+                    checkedOutBook.user_id = Convert.ToInt32(reader["User_id"]);
+                    checkedOutBook.book_id = Convert.ToInt32(reader["Book_id"]);
+                    checkedOutBook.is_checkedout = Convert.ToBoolean(reader["is_checkedout"]);
+                    checkedOutBook.checked_out_time = Convert.ToDateTime(reader["checked_out_time"]);
+
+                    checkedOutBooks.Add(checkedOutBook);
+                }
+
+                // Close db connection
+                conn.Close();
+
+                // Return list of books
+                return checkedOutBooks;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for returning list of currently checked out books for the current user
+        public static List<Book> GetCurrentCheckedOutForUser(string username)
+        {
+            try
+            {
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT b.Book_id, b.title, b.publisher, b.dev_language, b.date_published" +
+                    " FROM books as b" +
+                    "JOIN checkedout as ch on b.Book_id = ch.Book_id " +
+                    "JOIN users as u on u.User_id = ch.User_id " +
+                    "WHERE ch.is_checkedout = true AND users.username = @username", conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Prepare();
+
+                // Run command and make list of all checked out books and their values as a Book object
+                List<Book> checkedOutBooks = new List<Book>();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Book checkedOutBook = new Book(Convert.ToInt32(reader["Book_id"]),
+                        Convert.ToString(reader["title"]),
+                        Convert.ToString(reader["publisher"]),
+                        Convert.ToString(reader["dev_language"]),
+                        Convert.ToDateTime(reader["date_published"]));
 
                     checkedOutBooks.Add(checkedOutBook);
                 }
