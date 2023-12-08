@@ -73,10 +73,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Book book = new Book(Convert.ToInt32(reader["Book_id"]), 
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
                         Convert.ToString(reader["title"]),
-                        Convert.ToString(reader["publisher"]), 
-                        Convert.ToString(reader["dev_language"]), 
+                        Convert.ToString(reader["publisher"]),
+                        Convert.ToString(reader["dev_language"]),
                         Convert.ToDateTime(reader["date_published"]));
 
                     books.Add(book);
@@ -109,7 +109,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM checkedout", conn);
 
                 // Run command and make list of all checked out books and their values
-                List<CheckedOut>  checkedOutBooks = new List<CheckedOut>();
+                List<CheckedOut> checkedOutBooks = new List<CheckedOut>();
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -177,7 +177,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         }
 
         // Method for returning list of currently checked out books for the current user
-        public static List<Book> GetCurrentCheckedOutForUser(string username)
+        public static List<Book> GetCurrentCheckedOutForUser(int id)
         {
             try
             {
@@ -191,9 +191,9 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT b.Book_id, b.title, b.publisher, b.dev_language, b.date_published" +
                     " FROM books as b" +
                     "JOIN checkedout as ch on b.Book_id = ch.Book_id " +
-                    "JOIN users as u on u.User_id = ch.User_id " +
-                    "WHERE ch.is_checkedout = true AND users.username = @username", conn);
-                cmd.Parameters.AddWithValue("@username", username);
+                    "JOIN users as u on @userId = ch.User_id " +
+                    "WHERE ch.is_checkedout = true", conn);
+                cmd.Parameters.AddWithValue("@userId", id);
                 cmd.Prepare();
 
                 // Run command and make list of all checked out books and their values as a Book object
@@ -394,7 +394,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
-            
+
         }
 
         /// <summary>
@@ -434,7 +434,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
-            
+
         }
 
         /// <summary>
@@ -459,7 +459,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
-            
+
         }
 
         /// <summary>
@@ -490,7 +490,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
-            
+
         }
     }
 }

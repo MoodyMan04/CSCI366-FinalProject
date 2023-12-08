@@ -1,8 +1,5 @@
 ﻿using CSCI336_FinalProject.CSCI366FinalWork.Objects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -22,7 +19,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             gvCurrentUserInfo.DataBind();
 
             // Load grid view user currently checked out books
-            gvCheckedOutBooks.DataSource = Book.GetCurrentCheckedOutForUser(Page.User.Identity.Name);
+            gvCheckedOutBooks.DataSource = Book.GetCurrentCheckedOutForUser(Users.GetCurrentUserId(Page.User.Identity.Name));
             gvCheckedOutBooks.DataBind();
 
             // Get book count
@@ -114,12 +111,12 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
                 gvLibrary.DataBind();
                 lblInvalidLanguage.Visible = false;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 lblInvalidLanguage.Visible = true;
             }
         }
 
-        
+
     }
 }

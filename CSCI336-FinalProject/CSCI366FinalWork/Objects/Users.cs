@@ -116,6 +116,12 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             }
         }
 
+        /// <summary>
+        /// method to fetch the id of the currect.
+        /// </summary>
+        /// <param name="username"> username of the current user. </param>
+        /// <returns></returns>
+        /// <exception cref="Exception"> if any SQL exception is thrown </exception>
         public static int GetCurrentUserId(string username)
         {
             try
