@@ -358,7 +358,7 @@
         </tr>
         <tr>
             <td style="width: 593px">
-                <asp:CheckBox ID="cbDisplayCheckedOutBooks" runat="server" Text="Display only currently checked out books" />
+                <asp:CheckBox ID="cbDisplayCheckedOutBooks" runat="server" Text="Display only currently checked out books" AutoPostBack="True" OnCheckedChanged="cbDisplayCheckedOutBooks_CheckedChanged" />
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
