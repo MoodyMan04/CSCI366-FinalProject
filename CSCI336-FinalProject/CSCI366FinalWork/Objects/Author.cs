@@ -13,6 +13,16 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         public string first_name { get; private set; }
         public string last_name { get; private set; }
 
+        // Constructor method
+        public Author(int author_id, string first_name, string last_name)
+        {
+            Author_id = author_id;
+            this.first_name = first_name;
+            this.last_name = last_name;
+        }
+
+
+
         // SQL Methods
 
         // Method for returning list of authors
@@ -35,10 +45,9 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Author author = new Author();
-                    author.Author_id = Convert.ToInt32(reader["Author_id"]);
-                    author.first_name = Convert.ToString(reader["first_name"]);
-                    author.last_name = Convert.ToString(reader["last_name"]);
+                    Author author = new Author(Convert.ToInt32(reader["Author_id"]),
+                        Convert.ToString(reader["first_name"]),
+                        Convert.ToString(reader["last_name"]));
 
                     authors.Add(author);
                 }

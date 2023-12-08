@@ -11,6 +11,14 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         public string class_name { get; private set; }
         public string class_description { get; private set; }
 
+        // Constructor method
+        public Class(int class_id,  string class_name, string class_description)
+        {
+            Class_id = class_id;
+            this.class_name = class_name;
+            this.class_description = class_description;
+        }
+
         // SQL Methods
 
         // Method for returning list of authors
@@ -33,10 +41,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Class class1 = new Class();
-                    class1.Class_id = Convert.ToInt32(reader["Class_id"]);
-                    class1.class_name = Convert.ToString(reader["class_name"]);
-                    class1.class_description = Convert.ToString(reader["class_description"]);
+                    Class class1 = new Class(
+                        Convert.ToInt32(reader["Class_id"]),
+                        Convert.ToString(reader["class_name"]),
+                        Convert.ToString(reader["class_description"]));
 
                     classes.Add(class1);
                 }
