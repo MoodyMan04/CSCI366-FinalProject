@@ -40,37 +40,44 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         // Method to validate login for user
         public static int Login(string username, string password)
         {
-            // Get connection to db
-            NpgsqlConnection conn = DatabaseManager.GetConnection();
-
-            // Open connection
-            conn.Open();
-
-            // Create command to get password and is_Admin
-            string query = "SELECT password, is_Admin FROM users WHERE username = @username";
-            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@username", username);
-            cmd.Prepare();
-
-            // Get data out of reader
-            NpgsqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-
-            Users user = new Users(Convert.ToBoolean(reader["is_Admin"]), Convert.ToString(reader["password"]));
-
-            // Close connection
-            conn.Close();
-
-            // Check if user can login
-            if (password == user.password)
+            try
             {
-                if (user.is_Admin)
-                    return 2;
+                // Get connection to db
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection
+                conn.Open();
+
+                // Create command to get password and is_Admin
+                string query = "SELECT password, is_Admin FROM users WHERE username = @username";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Prepare();
+
+                // Get data out of reader
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+
+                Users user = new Users(Convert.ToBoolean(reader["is_Admin"]), Convert.ToString(reader["password"]));
+
+                // Close connection
+                conn.Close();
+
+                // Check if user can login
+                if (password == user.password)
+                {
+                    if (user.is_Admin)
+                        return 2;
+                    else
+                        return 1;
+                }
                 else
-                    return 1;
+                    return 0;
             }
-            else
+            catch
+            {
                 return 0;
+            }
         }
 
         // Method for returning list of users (ADMIN ONLY)

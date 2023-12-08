@@ -188,11 +188,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 conn.Open();
 
                 // Make command for db
-                NpgsqlCommand cmd = new NpgsqlCommand("SELECT b.Book_id, b.title, b.publisher, b.dev_language, b.date_published" +
-                    " FROM books as b" +
-                    "JOIN checkedout as ch on b.Book_id = ch.Book_id " +
-                    "JOIN users as u on @userId = ch.User_id " +
-                    "WHERE ch.is_checkedout = true", conn);
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT b.Book_id, b.title, b.publisher, b.dev_language, b.date_published " +
+                      "FROM books as b " +
+                      "JOIN checkedout as ch on b.Book_id = ch.Book_id " +
+                      "WHERE ch.is_checkedout = true AND ch.User_id = @userId", conn);
                 cmd.Parameters.AddWithValue("@userId", id);
                 cmd.Prepare();
 
