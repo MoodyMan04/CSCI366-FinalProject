@@ -14,6 +14,9 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Check if current user is an admin, if not, log out automatically
+            CheckUserAdmin();
+
             // Load all grid views
             UpdateBookGV();
             UpdateUsersGV();
@@ -25,6 +28,27 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
 
             // Update current return date
             UpdateCurrentReturnDate();
+        }
+
+        // Method for checking if current user is an admin
+        private void CheckUserAdmin()
+        {
+            try
+            {
+                // Log out user if user is not an admin
+                if (!Users.CheckUserAdmin(Page.User.Identity.Name))
+                {
+                    FormsAuthentication.SignOut();
+                    Response.Redirect("logon.aspx", true);
+                }
+            }
+            catch
+            {
+                // Log out user if error thrown
+                FormsAuthentication.SignOut();
+                Response.Redirect("logon.aspx", true);
+            }
+            
         }
 
         // Method for loading book grid view
@@ -111,6 +135,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             }
         }
 
+        // Method that updates the checked out grid view depending on if the admin wishes to display all or current
         protected void cbDisplayCheckedOutBooks_CheckedChanged(object sender, EventArgs e)
         {
             if (cbDisplayCheckedOutBooks.Checked == true)

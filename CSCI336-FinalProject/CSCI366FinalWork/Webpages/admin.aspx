@@ -472,7 +472,7 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 592px">
+            <td style="width: 592px; height: 247px;">
                 <asp:GridView ID="gvAuthoredBy" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
                     <AlternatingRowStyle BackColor="White" />
                     <EditRowStyle BackColor="#2461BF" />
@@ -487,7 +487,7 @@
                     <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 </asp:GridView>
             </td>
-            <td>
+            <td style="height: 247px">
                 <asp:Label ID="lblAuthoredByInfo" runat="server" Font-Bold="True" Text="Authored By Info:"></asp:Label>
                 <br />
                 Author ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -500,11 +500,14 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAuthoredByInfo" runat="server" ForeColor="Red" Text="Invalid Authored By Info" Visible="False"></asp:Label>
                 <br />
+                <asp:Button ID="btnUpdateAuthoredBy" runat="server" Text="Update Authored By" />
+&nbsp;<asp:Label ID="lblInvalidAuthoredByInfo2" runat="server" ForeColor="Red" Text="Invalid Authored By Info" Visible="False"></asp:Label>
+                <br />
                 <asp:Button ID="btnDeleteAuthoredBy" runat="server" Text="Delete Authored By" />
 &nbsp;
-                <asp:Label ID="lblInvalidAuthoredByInfo2" runat="server" ForeColor="Red" Text="Invalid Authored By Info" Visible="False"></asp:Label>
+                <asp:Label ID="lblInvalidAuthoredByInfo3" runat="server" ForeColor="Red" Text="Invalid Authored By Info" Visible="False"></asp:Label>
             </td>
-            <td>&nbsp;</td>
+            <td style="height: 247px"></td>
         </tr>
         <tr>
             <td style="width: 592px">&nbsp;</td>

@@ -4,7 +4,9 @@
 
     <main>
         <section class="row" aria-labelledby="aspnetTitle">
-            <h1 id="aspnetTitle">NDSU ACM Library</h1>
+            <h1 id="aspnetTitle">NDSU ACM Library
+                <asp:Image ID="Image1" runat="server" Height="100px" ImageUrl="~/Img/acm_logo_BIG_2023.png" Width="100px" />
+            </h1>
             <p>Welcome to the ACM Library Database! </p>
             <p>Here you can find all the books we have stored within NDSU ACM&#39;s library, as well as check out and return books!</p>
             <p>Click on the

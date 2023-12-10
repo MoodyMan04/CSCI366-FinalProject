@@ -35,7 +35,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         }
 
         // SQL Methods
-        // REST OF SQL METHODS FOR USER CLASS ADDED HERE
 
         // Method to validate login for user
         public static int Login(string username, string password)
@@ -77,6 +76,39 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             catch
             {
                 return 0;
+            }
+        }
+
+        // Method for checking if the current user is an admin
+        public static bool CheckUserAdmin(string username)
+        {
+            try
+            {
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT is_Admin FROM users WHERE username = @username", conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Prepare();
+
+                // Run command grab is_admin
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+
+                bool is_Admin = Convert.ToBoolean(reader["is_Admin"]);
+                // Close db connection
+                conn.Close();
+
+                // Return if user is an admin
+                return is_Admin;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
             }
         }
 

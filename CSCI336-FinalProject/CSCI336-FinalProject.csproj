@@ -167,6 +167,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Img\acm_logo_BIG_2023.png" />
     <Content Include="logon.aspx" />
     <Content Include="CSCI366FinalWork\Webpages\Web.config" />
     <Content Include="Scripts\bootstrap.bundle.js" />
