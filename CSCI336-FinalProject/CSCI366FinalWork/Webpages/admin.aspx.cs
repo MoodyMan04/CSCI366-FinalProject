@@ -292,5 +292,55 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
                 lblInvalidAuthorID.Visible = true;
             }
         }
+
+        // Method for adding Class
+        protected void btnAddClass_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Class.AddClass(tbClassName.Text.Trim(), tbClassDescription.Text.Trim());
+                lblInvalidClassInfo.Visible = false;
+                UpdateClassGV();
+            }
+            catch
+            {
+                lblInvalidAuthorInfo.Visible = true;
+            }
+        }
+
+        // Method for updating Class
+        protected void btnUpdateClass_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Class.UpdateClass(tbClassName.Text.Trim(), tbClassDescription.Text.Trim(),
+                    Convert.ToInt32(tbClassID.Text.Trim()));
+                lblInvalidClassInfo2.Visible = false;
+                UpdateClassGV();
+            }
+            catch
+            {
+                lblInvalidClassInfo2.Visible = true;
+            }
+        }
+
+        // Method for deleting Class
+        protected void btnDeleteClass_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Class.DeleteClass(Convert.ToInt32(tbClassID.Text.Trim()));
+                lblInvalidClassID.Visible = false;
+                UpdateClassGV();
+                UpdateAssociatedWithGV();
+            }
+            catch
+            {
+                lblInvalidClassID.Visible = true;
+            }
+        }
+
+        
+
     }
 }

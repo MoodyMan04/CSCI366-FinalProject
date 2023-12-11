@@ -269,7 +269,7 @@
                 <asp:Label ID="lblInvalidAuthorInfo" runat="server" ForeColor="Red" Text="Invalid Author Info" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnAddClass" runat="server" Text="Add Class" />
+                <asp:Button ID="btnAddClass" runat="server" Text="Add Class" OnClick="btnAddClass_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidClassInfo" runat="server" ForeColor="Red" Text="Invalid Class Info" Visible="False"></asp:Label>
             </td>
@@ -293,7 +293,7 @@
                 <asp:Label ID="lblInvalidAuthorInfo2" runat="server" ForeColor="Red" Text="Invalid Author Info" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnUpdateClass" runat="server" Text="Update Class" />
+                <asp:Button ID="btnUpdateClass" runat="server" Text="Update Class" OnClick="btnUpdateClass_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidClassInfo2" runat="server" ForeColor="Red" Text="Invalid Class Info" Visible="False"></asp:Label>
             </td>
@@ -306,7 +306,7 @@
                 <asp:Label ID="lblInvalidAuthorID" runat="server" ForeColor="Red" Text="Invalid Author ID" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnDeleteClass" runat="server" Text="Delete Class" />
+                <asp:Button ID="btnDeleteClass" runat="server" Text="Delete Class" OnClick="btnDeleteClass_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidClassID" runat="server" ForeColor="Red" Text="Invalid Class ID" Visible="False"></asp:Label>
             </td>

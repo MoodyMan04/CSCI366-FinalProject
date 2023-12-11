@@ -126,5 +126,53 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             }
         }
 
+        // Method for updating an Class
+        public static void UpdateClass(string class_name, string class_description, int class_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "UPDATE classes SET class_name = @class_name, class_description = @class_description WHERE Class_id = @Class_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@class_name", class_name);
+                cmd.Parameters.AddWithValue("@class_description", class_description);
+                cmd.Parameters.AddWithValue("@class_id", class_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+            // Method for deleting an Class
+            public static void DeleteClass(int Class_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "DELETE FROM asscoiatedWith WHERE Class_id = @Class_id; DELETE FROM classes WHERE Class_id = @Class_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Class_id", Class_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
     }
 }
