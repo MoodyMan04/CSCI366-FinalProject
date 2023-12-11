@@ -245,5 +245,52 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
                 lblInvalidUserID.Visible = true;
             }
         }
+
+        // Method for adding Author
+        protected void btnAddAuthor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Author.AddAuthor(tbAuthorFirstname.Text.Trim(), tbAuthorLastname.Text.Trim());
+                lblInvalidAuthorInfo.Visible = false;
+                UpdateAuthorGV();
+            }
+            catch
+            {
+                lblInvalidAuthorInfo.Visible = true;
+            }
+        }
+
+        // Method for updating an Author
+        protected void btnUpdateAuthor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Author.UpdateAuthor(tbAuthorFirstname.Text.Trim(), tbAuthorLastname.Text.Trim(),
+                    Convert.ToInt32(tbAuthorID.Text.Trim()));
+                lblInvalidAuthorInfo2.Visible = false;
+                UpdateAuthorGV();
+            }
+            catch
+            {
+                lblInvalidAuthoredByInfo2.Visible = true;
+            }
+        }
+
+        // Method for deleting an Author
+        protected void btnDeleteAuthor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Author.DeleteAuthor(Convert.ToInt32(tbAuthorID.Text.Trim()));
+                lblInvalidAuthorID.Visible = false;
+                UpdateAuthorGV();
+                UpdateAuthoredByGV();
+            }
+            catch
+            {
+                lblInvalidAuthorID.Visible = true;
+            }
+        }
     }
 }

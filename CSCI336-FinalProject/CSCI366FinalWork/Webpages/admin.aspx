@@ -263,7 +263,7 @@
         </tr>
         <tr>
             <td style="width: 240px">
-                <asp:Button ID="btnAddAuthor" runat="server" Text="Add Author" />
+                <asp:Button ID="btnAddAuthor" runat="server" Text="Add Author" OnClick="btnAddAuthor_Click" />
             </td>
             <td style="width: 350px">
                 <asp:Label ID="lblInvalidAuthorInfo" runat="server" ForeColor="Red" Text="Invalid Author Info" Visible="False"></asp:Label>
@@ -287,7 +287,7 @@
         </tr>
         <tr>
             <td style="width: 240px">
-                <asp:Button ID="btnUpdateAuthor" runat="server" Text="Update Author" />
+                <asp:Button ID="btnUpdateAuthor" runat="server" Text="Update Author" OnClick="btnUpdateAuthor_Click" />
             </td>
             <td style="width: 351px">
                 <asp:Label ID="lblInvalidAuthorInfo2" runat="server" ForeColor="Red" Text="Invalid Author Info" Visible="False"></asp:Label>
@@ -300,7 +300,7 @@
         </tr>
         <tr>
             <td style="width: 240px">
-                <asp:Button ID="btnDeleteAuthor" runat="server" Text="Delete Author" />
+                <asp:Button ID="btnDeleteAuthor" runat="server" Text="Delete Author" OnClick="btnDeleteAuthor_Click" />
             </td>
             <td style="width: 351px">
                 <asp:Label ID="lblInvalidAuthorID" runat="server" ForeColor="Red" Text="Invalid Author ID" Visible="False"></asp:Label>
