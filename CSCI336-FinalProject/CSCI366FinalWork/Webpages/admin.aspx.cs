@@ -158,7 +158,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             {
                 lblInvalidBookInfo.Visible = true;
             }
-
         }
 
         // Method to update book
@@ -185,10 +184,65 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             {
                 Book.DeleteBook(Convert.ToInt32(tbBookID.Text.Trim()));
                 lblInvalidBookID.Visible = false;
+                UpdateBookGV();
+                UpdateAuthoredByGV();
+                UpdateAssociatedWithGV();
+                UpdateCheckedOutAllGV();
             }
             catch
             {
                 lblInvalidBookInfo.Visible = true;
+            }
+        }
+
+        //Method to add user
+        protected void btnAddUser_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Users.AddUser(tbUserFirstname.Text.Trim(), tbUserLastname.Text.Trim(), 
+                    chkUserIsAdmin.Checked, tbUserEmail.Text.Trim(),
+                    tbUserUsername.Text.Trim(), tbUserPassword.Text.Trim());
+                lblInvalidUserInfo.Visible = false;
+                UpdateUsersGV();
+            }
+            catch
+            {
+                lblInvalidUserInfo.Visible = true;
+            }
+        }
+
+        //Method to update user
+        protected void btnUpdateUser_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Users.UpdateUser(tbUserFirstname.Text.Trim(), tbUserLastname.Text.Trim(), 
+                    chkUserIsAdmin.Checked, tbUserEmail.Text.Trim(),
+                    tbUserUsername.Text.Trim(), tbUserPassword.Text.Trim(),
+                    Convert.ToInt32(tbUserID.Text.Trim()));
+                lblInvalidUserInfo2.Visible = false;
+                UpdateUsersGV();
+            }
+            catch
+            {
+                lblInvalidUserInfo2.Visible = true;
+            }
+        }
+
+        //Method to delete user
+        protected void btnDeleteUser_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Users.DeleteUser(Convert.ToInt32(tbUserID.Text.Trim()));
+                lblInvalidUserID.Visible = false;
+                UpdateUsersGV();
+                UpdateCheckedOutAllGV();
+            }
+            catch
+            {
+                lblInvalidUserID.Visible = true;
             }
         }
     }

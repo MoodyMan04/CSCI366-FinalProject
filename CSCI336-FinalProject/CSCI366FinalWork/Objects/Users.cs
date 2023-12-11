@@ -230,5 +230,85 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 throw new Exception(ex.Message, ex);
             }
         }
+
+        // Method for adding user
+        public static void AddUser(string first_name, string last_name, Boolean is_admin, string email, string username, string password)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "INSERT INTO users (first_name, last_name, is_admin, email, username, password) VALUES(@first_name, @last_name, @is_admin, @email, @username, @password)";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@first_name", first_name);
+                cmd.Parameters.AddWithValue("@last_name", last_name);
+                cmd.Parameters.AddWithValue("@is_admin", is_admin);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        //Method for updating user
+        public static void UpdateUser(string first_name, string last_name, Boolean is_admin, string email, string username, string password, int user_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "UPDATE users SET first_name = @first_name, last_name = @last_name, is_admin = @is_admin, email = @email, username = @username, password = @password WHERE user_id = @user_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@first_name", first_name);
+                cmd.Parameters.AddWithValue("@last_name", last_name);
+                cmd.Parameters.AddWithValue("@is_admin", is_admin);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@user_id", user_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        //Method for deleting user
+        public static void DeleteUser(int user_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "DELETE FROM checkedout WHERE user_id = @user_id; DELETE FROM users WHERE user_id = @user_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@user_id", user_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }

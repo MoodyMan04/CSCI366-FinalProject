@@ -96,7 +96,7 @@
                 <asp:TextBox ID="tbBookLanguage" runat="server"></asp:TextBox>
             </td>
             <td>Is Admin:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:TextBox ID="tbUserIsAdmin" runat="server"></asp:TextBox>
+                <asp:CheckBox ID="chkUserIsAdmin" runat="server" Text="Is Admin?" />
             </td>
         </tr>
         <tr>
@@ -134,9 +134,9 @@
             <td style="width: 358px">
                 &nbsp;</td>
             <td>
-                <asp:Button ID="btnAddUser" runat="server" Text="Add User" />
+                <asp:Button ID="btnAddUser" runat="server" Text="Add User" OnClick="btnAddUser_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label3" runat="server" ForeColor="Red" Text="Invalid User Info" Visible="False"></asp:Label>
+                <asp:Label ID="lblInvalidUserInfo" runat="server" ForeColor="Red" Text="Invalid User Info" Visible="False"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -169,7 +169,7 @@
                 <asp:Label ID="lblInvalidBookInfo2" runat="server" ForeColor="Red" Text="Invalid Book Info" Visible="False"></asp:Label>
             </td>
             <td style="height: 49px">
-                <asp:Button ID="btnUpdateUser" runat="server" Text="Update User" />
+                <asp:Button ID="btnUpdateUser" runat="server" Text="Update User" OnClick="btnUpdateUser_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidUserInfo2" runat="server" ForeColor="Red" Text="Invalid User ID" Visible="False"></asp:Label>
             </td>
@@ -182,7 +182,7 @@
                 <asp:Label ID="lblInvalidBookID" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnDeleteUser" runat="server" Text="Delete User" />
+                <asp:Button ID="btnDeleteUser" runat="server" Text="Delete User" OnClick="btnDeleteUser_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidUserID" runat="server" ForeColor="Red" Text="Invalid User ID" Visible="False"></asp:Label>
             </td>
@@ -397,16 +397,10 @@
         <tr>
             <td style="height: 41px; width: 310px">Is Checked Out:</td>
             <td style="height: 41px; width: 280px">
-                <asp:DropDownList ID="ddlIsCheckedOut" runat="server" style="margin-left: 50">
-                    <asp:ListItem>True</asp:ListItem>
-                    <asp:ListItem>False</asp:ListItem>
-                </asp:DropDownList>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                <asp:CheckBox ID="chkIsCheckedOut" runat="server" Text="Is Checked Out?" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td style="height: 41px">Is Required:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:DropDownList ID="ddlIsRequired" runat="server">
-                    <asp:ListItem>True</asp:ListItem>
-                    <asp:ListItem>False</asp:ListItem>
-                </asp:DropDownList>
+                <asp:CheckBox ID="chkIsRequired" runat="server" Text="Is Required?" />
             </td>
         </tr>
         <tr>
