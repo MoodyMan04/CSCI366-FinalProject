@@ -159,13 +159,13 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.TextBox tbUserIsAdmin;
 
         /// <summary>
-        /// tbDatePublished control.
+        /// tbBookDatePublished control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDatePublished;
+        protected global::System.Web.UI.WebControls.TextBox tbBookDatePublished;
 
         /// <summary>
         /// tbUserEmail control.

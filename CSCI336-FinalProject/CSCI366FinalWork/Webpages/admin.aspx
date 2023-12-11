@@ -102,7 +102,7 @@
         <tr>
             <td style="width: 233px">Date Published:</td>
             <td style="width: 356px">
-                <asp:TextBox ID="tbDatePublished" runat="server"></asp:TextBox>
+                <asp:TextBox ID="tbBookDatePublished" runat="server"></asp:TextBox>
             </td>
             <td>Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbUserEmail" runat="server"></asp:TextBox>
@@ -110,7 +110,7 @@
         </tr>
         <tr>
             <td style="width: 233px">
-                <asp:Button ID="btnAddBook" runat="server" Text="Add Book" />
+                <asp:Button ID="btnAddBook" runat="server" Text="Add Book" OnClick="btnAddBook_Click" />
             </td>
             <td style="width: 356px">
                 <asp:Label ID="lblInvalidBookInfo" runat="server" ForeColor="Red" Text="Invalid Book Info" Visible="False"></asp:Label>
@@ -163,7 +163,7 @@
         </tr>
         <tr>
             <td style="width: 230px; height: 49px">
-                <asp:Button ID="btnUpdateBook" runat="server" Text="Update Book" />
+                <asp:Button ID="btnUpdateBook" runat="server" Text="Update Book" OnClick="btnUpdateBook_Click" />
             </td>
             <td style="width: 359px; height: 49px">
                 <asp:Label ID="lblInvalidBookInfo2" runat="server" ForeColor="Red" Text="Invalid Book Info" Visible="False"></asp:Label>
@@ -176,7 +176,7 @@
         </tr>
         <tr>
             <td style="width: 230px">
-                <asp:Button ID="btnDeleteBook" runat="server" Text="Delete Book" />
+                <asp:Button ID="btnDeleteBook" runat="server" Text="Delete Book" OnClick="btnDeleteBook_Click" />
             </td>
             <td style="width: 359px">
                 <asp:Label ID="lblInvalidBookID" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>

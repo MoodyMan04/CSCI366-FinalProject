@@ -491,5 +491,81 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             }
 
         }
+
+        // Method for adding book
+        public static void AddBook(string title, string publisher, string dev_language, DateTime date_published)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "INSERT INTO books (title, publisher, dev_language, date_published) VALUES(@title, @publisher, @dev_language, @date_published)";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@title", title);
+                cmd.Parameters.AddWithValue("@publisher", publisher);
+                cmd.Parameters.AddWithValue("@dev_language", dev_language);
+                cmd.Parameters.AddWithValue("@date_published", date_published);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        //Method for updating book
+        public static void UpdateBook(string title, string publisher, string dev_language, DateTime date_published, int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "UPDATE books SET title = @title, publisher = @publisher, dev_language = @dev_language, date_published = @date_published WHERE book_id = @book_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@title", title);
+                cmd.Parameters.AddWithValue("@publisher", publisher);
+                cmd.Parameters.AddWithValue("@dev_language", dev_language);
+                cmd.Parameters.AddWithValue("@date_published", date_published);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        //Method for deleting book
+        public static void DeleteBook(int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "DELETE FROM asscoiatedwith WHERE book_id = @book_id; DELETE FROM authoredby WHERE book_id = @book_id; DELETE FROM checkedout WHERE book_id = @book_id; DELETE FROM books WHERE book_id = @book_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }

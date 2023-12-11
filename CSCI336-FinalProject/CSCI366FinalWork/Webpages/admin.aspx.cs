@@ -143,5 +143,53 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             else
                 UpdateCheckedOutAllGV();
         }
+
+        // Method to add book
+        protected void btnAddBook_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book.AddBook(tbBookTitle.Text.Trim(), tbBookPublisher.Text.Trim(),
+                    tbBookLanguage.Text.Trim(), Convert.ToDateTime(tbBookDatePublished.Text.Trim()));
+                lblInvalidBookInfo.Visible = false;
+                UpdateBookGV();
+            }
+            catch
+            {
+                lblInvalidBookInfo.Visible = true;
+            }
+
+        }
+
+        // Method to update book
+        protected void btnUpdateBook_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book.UpdateBook(tbBookTitle.Text.Trim(), tbBookPublisher.Text.Trim(),
+                    tbBookLanguage.Text.Trim(), Convert.ToDateTime(tbBookDatePublished.Text.Trim()), 
+                    Convert.ToInt32(tbBookID.Text.Trim()));
+                lblInvalidBookInfo2.Visible = false;
+                UpdateBookGV();
+            }
+            catch
+            {
+                lblInvalidBookInfo2.Visible = true;
+            }
+        }
+
+        //Method to delete book
+        protected void btnDeleteBook_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book.DeleteBook(Convert.ToInt32(tbBookID.Text.Trim()));
+                lblInvalidBookID.Visible = false;
+            }
+            catch
+            {
+                lblInvalidBookInfo.Visible = true;
+            }
+        }
     }
 }
