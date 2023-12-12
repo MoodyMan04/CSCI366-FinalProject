@@ -12,14 +12,29 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Load all grid views
+            UpdateLibraryGV();
+            UpdateCheckedOutGV();
+            UpdateUserInfoGV();
+            
+            // Get book count
+            lblBookCount.Text = Convert.ToString(Book.GetBookCountAll());
+
+            // Get return date
+            lblReturnDate.Text = Convert.ToString(Book.return_date);
+        }
+
+        // Method to load grid view of library
+        private void UpdateLibraryGV()
+        {
             // Load grid view library with all books
             gvLibrary.DataSource = Book.GetBooksAll();
             gvLibrary.DataBind();
+        }
 
-            // Load grid view user info with current user info
-            gvCurrentUserInfo.DataSource = Users.GetCurrentUser(Page.User.Identity.Name);
-            gvCurrentUserInfo.DataBind();
-
+        // Method to load grid view of currently checked out books
+        private void UpdateCheckedOutGV()
+        {
             // Load grid view user currently checked out books
             List<(Book, DateTime)> checkedOutBooks = Book.GetCurrentCheckedOutForUser(Users.GetCurrentUserId(Page.User.Identity.Name));
             DataTable dt = new DataTable();
@@ -44,12 +59,14 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
 
             gvCheckedOutBooks.DataSource = dt;
             gvCheckedOutBooks.DataBind();
+        }
 
-            // Get book count
-            lblBookCount.Text = Convert.ToString(Book.GetBookCountAll());
-
-            // Get return date
-            lblReturnDate.Text = Convert.ToString(Book.return_date);
+        // Method to load grid view of user info
+        private void UpdateUserInfoGV()
+        {
+            // Load grid view user info with current user info
+            gvCurrentUserInfo.DataSource = Users.GetCurrentUser(Page.User.Identity.Name);
+            gvCurrentUserInfo.DataBind();
         }
 
         // Method that logs out current user when button is pressed
@@ -169,5 +186,36 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
                 lblInvalidClass.Visible = true;
             }
         }
+
+        // Method to check out a book as the current user
+        protected void btnCheckOutBook_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book.CheckOutBook(Users.GetCurrentUserId(Page.User.Identity.Name), Convert.ToInt32(tbCheckOutBook.Text.Trim()));
+                UpdateCheckedOutGV();
+                lblInvalidBookID2.Visible = false;
+            }
+            catch
+            {
+                lblInvalidBookID2.Visible = true;
+            }
+        }
+
+        // Method to return a checked out book as the current user
+        protected void btnReturnBook_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book.ReturnBook(Users.GetCurrentUserId(Page.User.Identity.Name), Convert.ToInt32(tbReturnBook.Text.Trim()));
+                UpdateCheckedOutGV();
+                lblInvalidBookID3.Visible = false;
+            }
+            catch
+            {
+                lblInvalidBookID3.Visible = true;
+            }
+        }
+
     }
 }

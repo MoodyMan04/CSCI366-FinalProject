@@ -4,7 +4,7 @@
 
     <main>
         <section class="row" aria-labelledby="aspnetTitle">
-            <h1 id="aspnetTitle">NDSU ACM Library
+            <h1 id="aspnetTitle"><strong>NDSU ACM Library</strong>
                 <asp:Image ID="Image1" runat="server" Height="100px" ImageUrl="~/Img/acm_logo_BIG_2023.png" Width="100px" />
             </h1>
             <p>Welcome to the ACM Library Database! </p>

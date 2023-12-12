@@ -539,25 +539,24 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
         }
 
-        /// <summary>
-        /// insert a book and clss id into linking table with if the book is required or not.
-        /// </summary>
-        /// <param name="bookid"> id of book </param>
-        /// <param name="classid"> id of class </param>
-        /// <param name="req"> a boolean to specify if the book is required </param>
-        public static void AddClassRequirement(int bookid, int classid, bool req)
+        // Method to check out a book
+        public static void CheckOutBook(int user_id, int book_id)
         {
             try
             {
                 NpgsqlConnection conn = DatabaseManager.GetConnection();
                 conn.Open();
 
-                string query = "INSERT INTO asscoiatedwith (class_id, book_id, is_required) VALUES(@bookid, @classid, @req)";
+                string query = "INSERT INTO checkedout (user_id, book_id, is_checkedout, checked_out_time) " +
+                    "SELECT @userID, @bookID, @is_checkedout, @checked_out_time " +
+                    "WHERE NOT EXISTS (SELECT book_id, is_checkedout " +
+                    "FROM checkedout WHERE book_id = @bookID AND is_checkedout = true)";
 
                 NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@bookid", bookid);
-                cmd.Parameters.AddWithValue("@classid", classid);
-                cmd.Parameters.AddWithValue("@req", req);
+                cmd.Parameters.AddWithValue("@userID", user_id);
+                cmd.Parameters.AddWithValue("@bookID", book_id);
+                cmd.Parameters.AddWithValue("@is_checkedout", true);
+                cmd.Parameters.AddWithValue("@checked_out_time", DateTime.Now);
                 cmd.Prepare();
 
                 cmd.ExecuteNonQuery();
@@ -567,7 +566,31 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
+        }
 
+        // Method for returning a book
+        public static void ReturnBook(int user_id, int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "UPDATE checkedout SET is_checkedout = false " +
+                    "WHERE user_id = @user_id AND book_id = @book_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@user_id", user_id);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         // Method for adding book
@@ -578,7 +601,9 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlConnection conn = DatabaseManager.GetConnection();
                 conn.Open();
 
-                string query = "INSERT INTO books (title, publisher, dev_language, date_published) VALUES(@title, @publisher, @dev_language, @date_published)";
+                string query = "INSERT INTO books " +
+                    "(title, publisher, dev_language, date_published) " +
+                    "VALUES(@title, @publisher, @dev_language, @date_published)";
 
                 NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@title", title);
@@ -681,6 +706,36 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@author_id", author_id);
                 cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        /// <summary>
+        /// insert a book and clss id into linking table with if the book is required or not.
+        /// </summary>
+        /// <param name="bookid"> id of book </param>
+        /// <param name="classid"> id of class </param>
+        /// <param name="req"> a boolean to specify if the book is required </param>
+        public static void AddAssociatedWith(int bookid, int classid, bool req)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "INSERT INTO asscoiatedwith (class_id, book_id, is_required) VALUES(@bookid, @classid, @req)";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@bookid", bookid);
+                cmd.Parameters.AddWithValue("@classid", classid);
+                cmd.Parameters.AddWithValue("@req", req);
                 cmd.Prepare();
 
                 cmd.ExecuteNonQuery();

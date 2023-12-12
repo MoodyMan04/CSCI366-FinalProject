@@ -118,7 +118,7 @@
                 <asp:TextBox ID="tbCheckOutBook" runat="server"></asp:TextBox>
             </td>
             <td style="height: 43px">
-                <asp:Button ID="btnCheckOutBook" runat="server" Text="Check Out Book" />
+                <asp:Button ID="btnCheckOutBook" runat="server" Text="Check Out Book" OnClick="btnCheckOutBook_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidBookID2" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>
             </td>
@@ -134,7 +134,7 @@
                 <asp:TextBox ID="tbReturnBook" runat="server"></asp:TextBox>
             </td>
             <td style="height: 43px">
-                <asp:Button ID="btnReturnBook" runat="server" Text="Return Book" />
+                <asp:Button ID="btnReturnBook" runat="server" Text="Return Book" OnClick="btnReturnBook_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="lblInvalidBookID3" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>
             </td>
         </tr>
