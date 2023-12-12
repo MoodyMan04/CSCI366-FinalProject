@@ -231,6 +231,15 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Label lblInvalidClass;
 
         /// <summary>
+        /// cbIsRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbIsRequired;
+
+        /// <summary>
         /// lblCheckOutBook control.
         /// </summary>
         /// <remarks>

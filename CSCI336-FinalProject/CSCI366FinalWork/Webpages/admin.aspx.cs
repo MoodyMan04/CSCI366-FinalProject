@@ -386,17 +386,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
 
         protected void btnUpdateAssociatedWith_Click(object sender, EventArgs e)
         {
-            try
-            {
                 Book.UpdateAssociatedWith(Convert.ToInt32(tbAssociatedWithBookID.Text.Trim()), Convert.ToInt32(tbAssociatedWithClassID.Text.Trim()), 
                     chkIsRequired.Checked);
                 lblInvalidAssociationInfo2.Visible = false;
                 UpdateAssociatedWithGV();
-            }
-            catch
-            {
-                lblInvalidAssociationInfo2.Visible = true;
-            }
         }
 
         protected void btnDeleteAssociatedWith_Click(object sender, EventArgs e)

@@ -96,7 +96,7 @@
             </td>
         </tr>
         <tr>
-            <td style="width: 209px; height: 49px">Required Class:</td>
+            <td style="width: 209px; height: 49px">Class:</td>
             <td style="width: 297px; height: 49px">
                 <asp:TextBox ID="tbFilterClass" runat="server" CssClass="offset-sm-0"></asp:TextBox>
             </td>
@@ -107,6 +107,8 @@
             </td>
         </tr>
     </table>
+    <asp:CheckBox ID="cbIsRequired" runat="server" Text="Only Required Books" />
+    <br />
     (class name will be class designation - number ex: CSCI-160)<br />
     <br />
     <asp:Label ID="lblCheckOutBook" runat="server" Font-Bold="True" Font-Size="Large" Text="Check Out Book:"></asp:Label>

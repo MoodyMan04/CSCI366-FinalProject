@@ -515,6 +515,45 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             }
         }
 
+        // Method for returning list of books that are required by a class
+        public static List<Book> GetBookByRequiredClass(string className)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "SELECT books.book_id, books.title, books.publisher, books.dev_language, books.date_published " +
+                    "FROM books " +
+                    "JOIN asscoiatedwith ON books.book_id = asscoiatedwith.book_id " +
+                    "JOIN classes ON asscoiatedwith.class_id = classes.class_id " +
+                    "WHERE class_name ILIKE @className AND is_required = true";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@className", '%' + className + '%');
+                cmd.Prepare();
+
+                List<Book> books = new List<Book>();
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
+                         Convert.ToString(reader["title"]),
+                         Convert.ToString(reader["publisher"]),
+                         Convert.ToString(reader["dev_language"]),
+                         Convert.ToDateTime(reader["date_published"]));
+
+                    books.Add(book);
+                }
+                conn.Close();
+                return books;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
         /// <summary>
         ///  returns all book counts
         /// </summary>
@@ -755,12 +794,12 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlConnection conn = DatabaseManager.GetConnection();
                 conn.Open();
 
-                string query = "UPDATE authoredby SET book_id = @book_id, class_id = @class_id, req = @req WHERE book_id = @book_id AND class_id = @class_id;";
+                string query = "UPDATE asscoiatedwith SET is_required = @req WHERE book_id = @book_id AND class_id = @class_id;";
 
                 NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@book_id", book_id);
                 cmd.Parameters.AddWithValue("@class_id", class_id);
-                cmd.Parameters.AddWithValue("@book_id", req);
+                cmd.Parameters.AddWithValue("@req", req);
                 cmd.Prepare();
 
                 cmd.ExecuteNonQuery();

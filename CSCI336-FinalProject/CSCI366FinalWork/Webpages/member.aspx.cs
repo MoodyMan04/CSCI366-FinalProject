@@ -177,7 +177,11 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         {
             try
             {
-                gvLibrary.DataSource = Book.GetBookByClass(tbFilterClass.Text.Trim());
+                if (cbIsRequired.Checked)
+                    gvLibrary.DataSource = Book.GetBookByRequiredClass(tbFilterClass.Text.Trim());
+                else
+                    gvLibrary.DataSource = Book.GetBookByClass(tbFilterClass.Text.Trim());
+
                 gvLibrary.DataBind();
                 lblInvalidClass.Visible = false;
             }
