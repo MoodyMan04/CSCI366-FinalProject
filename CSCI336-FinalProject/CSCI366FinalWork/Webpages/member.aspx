@@ -3,7 +3,7 @@
     <table class="w-100">
         <tr>
             <td style="width: 586px; height: 29px">&nbsp;<asp:Label ID="lblWelcome" runat="server" Font-Size="Large" Text="Welcome, "></asp:Label>
-                <asp:LoginName ID="LoginName1" runat="server" Font-Size="Large" style="color: #0000FF" />
+                <asp:Label ID="lblUserName" runat="server" Font-Bold="True" ForeColor="Blue" Text="userName"></asp:Label>
             </td>
             <td class="text-end" style="height: 29px">
                 <asp:LoginStatus ID="LoginStatus1" runat="server" Font-Size="Large" LogoutText="Log Out" OnLoggingOut="LoginStatus1_LoggingOut" />
@@ -158,7 +158,7 @@
         <SortedDescendingHeaderStyle BackColor="#4870BE" />
     </asp:GridView>
     <br />
-    <asp:Label ID="lblUdpateUserInfo" runat="server" Font-Bold="True" Font-Size="Large" Text="Update User Info:"></asp:Label>
+    <asp:Label ID="lblUpdateUserInfo" runat="server" Font-Bold="True" Font-Size="Large" Text="Update User Info:"></asp:Label>
     <br />
     Current User Info:<br />
     <asp:GridView ID="gvCurrentUserInfo" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowDataBound="gvCurrentUserInfo_RowDataBound">
@@ -210,7 +210,9 @@
             <td style="width: 307px">
                 <asp:TextBox ID="tbUserCurrentPassword" runat="server"></asp:TextBox>
             </td>
-            <td>&nbsp;</td>
+            <td>
+                <asp:Label ID="lblInvalidCurrentPassword" runat="server" ForeColor="Red" Text="Current Password Is Incorrect" Visible="False"></asp:Label>
+            </td>
         </tr>
         <tr>
             <td style="width: 298px">
@@ -224,15 +226,17 @@
     <table style="width:100%;">
         <tr>
             <td style="width: 299px">
-                <asp:Button ID="btnUpdateUserInfo" runat="server" Text="Update Info" />
+                <asp:Button ID="btnUpdateUserInfo" runat="server" Text="Update Info" OnClick="btnUpdateUserInfo_Click" />
             </td>
             <td style="width: 306px">
-                <asp:Label ID="lblInvalidInfo" runat="server" Font-Bold="False" ForeColor="Red" Text="Invalid Info" Visible="False"></asp:Label>
+                <asp:Label ID="lblInvalidInfo" runat="server" Font-Bold="False" ForeColor="Red" Text="Invalid Info Provided" Visible="False"></asp:Label>
             </td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 299px">&nbsp;</td>
+            <td style="width: 299px">
+                <asp:Label ID="lblUserUpdated" runat="server" ForeColor="#009933" Text="Info Updated!" Visible="False"></asp:Label>
+            </td>
             <td style="width: 306px">&nbsp;</td>
             <td>&nbsp;</td>
         </tr>

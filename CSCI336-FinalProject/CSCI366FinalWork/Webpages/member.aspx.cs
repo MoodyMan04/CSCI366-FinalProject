@@ -10,12 +10,21 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
 {
     public partial class member : System.Web.UI.Page
     {
+        // Instance variable for user name
+        private string userName { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Get username
+            userName = Page.User.Identity.Name;
+
+            // Display username
+            lblUserName.Text = userName;
+
             // Load all grid views
             UpdateLibraryGV();
-            UpdateCheckedOutGV();
-            UpdateUserInfoGV();
+            UpdateCheckedOutGV(userName);
+            UpdateUserInfoGV(userName);
             
             // Get book count
             lblBookCount.Text = Convert.ToString(Book.GetBookCountAll());
@@ -33,10 +42,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         }
 
         // Method to load grid view of currently checked out books
-        private void UpdateCheckedOutGV()
+        private void UpdateCheckedOutGV(string userName)
         {
             // Load grid view user currently checked out books
-            List<(Book, DateTime)> checkedOutBooks = Book.GetCurrentCheckedOutForUser(Users.GetCurrentUserId(Page.User.Identity.Name));
+            List<(Book, DateTime)> checkedOutBooks = Book.GetCurrentCheckedOutForUser(Users.GetCurrentUserId(userName));
             DataTable dt = new DataTable();
             dt.Columns.Add(new DataColumn("Book ID", typeof(int)));
             dt.Columns.Add(new DataColumn("Title", typeof(string)));
@@ -62,10 +71,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         }
 
         // Method to load grid view of user info
-        private void UpdateUserInfoGV()
+        private void UpdateUserInfoGV(string userName)
         {
             // Load grid view user info with current user info
-            gvCurrentUserInfo.DataSource = Users.GetCurrentUser(Page.User.Identity.Name);
+            gvCurrentUserInfo.DataSource = Users.GetCurrentUser(userName);
             gvCurrentUserInfo.DataBind();
         }
 
@@ -196,8 +205,8 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         {
             try
             {
-                Book.CheckOutBook(Users.GetCurrentUserId(Page.User.Identity.Name), Convert.ToInt32(tbCheckOutBook.Text.Trim()));
-                UpdateCheckedOutGV();
+                Book.CheckOutBook(Users.GetCurrentUserId(userName), Convert.ToInt32(tbCheckOutBook.Text.Trim()));
+                UpdateCheckedOutGV(userName);
                 lblInvalidBookID2.Visible = false;
             }
             catch
@@ -211,8 +220,8 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         {
             try
             {
-                Book.ReturnBook(Users.GetCurrentUserId(Page.User.Identity.Name), Convert.ToInt32(tbReturnBook.Text.Trim()));
-                UpdateCheckedOutGV();
+                Book.ReturnBook(Users.GetCurrentUserId(userName), Convert.ToInt32(tbReturnBook.Text.Trim()));
+                UpdateCheckedOutGV(userName);
                 lblInvalidBookID3.Visible = false;
             }
             catch
@@ -221,5 +230,36 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             }
         }
 
+        // Method to update current user info
+        protected void btnUpdateUserInfo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool updated = Users.UpdateCurrentUserInfo(Users.GetCurrentUserId(userName),
+                    tbUserFirstname.Text.Trim(), tbUserLastname.Text.Trim(),
+                    tbUserEmail.Text.Trim(), tbUserUsername.Text.Trim(), tbUserCurrentPassword.Text.Trim(),
+                    tbUserNewPassword.Text.Trim());
+
+                if (updated)
+                {
+                    userName = tbUserUsername.Text.Trim();
+                    UpdateUserInfoGV(userName);
+                    lblUserName.Text = userName;
+                    lblUserUpdated.Visible = true;
+                    lblInvalidCurrentPassword.Visible = false;
+                }
+                else
+                {
+                    lblUserUpdated.Visible = false;
+                    lblInvalidCurrentPassword.Visible = true;
+                }
+
+                lblInvalidInfo.Visible = false;
+            }
+            catch
+            {
+                lblInvalidInfo.Visible = true;
+            }
+        }
     }
 }

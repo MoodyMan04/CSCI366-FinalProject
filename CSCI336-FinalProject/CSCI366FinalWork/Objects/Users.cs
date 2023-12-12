@@ -288,6 +288,61 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             }
         }
 
+        // Method to update user info
+        public static bool UpdateCurrentUserInfo(int user_id, string firstname, string lastname, string email, string username, string currentPassword, string newPassword)
+        {
+            try
+            {
+                bool updated = false;
+
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                // Query to get user's password
+                string passwordQuery = "SELECT password FROM users WHERE user_id = @user_id";
+                NpgsqlCommand cmd = new NpgsqlCommand(passwordQuery, conn);
+                cmd.Parameters.AddWithValue("@user_id", user_id);
+                cmd.Prepare();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+
+                string userPassword = Convert.ToString(reader["password"]);
+
+                conn.Close();
+                
+
+                // Query to update user if current password matches
+                if (userPassword.Trim() == currentPassword.Trim())
+                {
+                    conn.Open();
+
+                    string updateQuery = "UPDATE users SET first_name = @firstname, last_name = @lastname, " +
+                    "email = @email, username = @username, password = @newPassword WHERE user_id = @user_id;";
+                    NpgsqlCommand cmd2 = new NpgsqlCommand(updateQuery, conn);
+                    cmd2.Parameters.AddWithValue("@firstname", firstname);
+                    cmd2.Parameters.AddWithValue("@lastname", lastname);
+                    cmd2.Parameters.AddWithValue("@email", email);
+                    cmd2.Parameters.AddWithValue("@username", username);
+                    cmd2.Parameters.AddWithValue("@newPassword", newPassword);
+                    cmd2.Parameters.AddWithValue("@user_id", user_id);
+                    cmd2.Prepare();
+
+                    cmd2.ExecuteNonQuery();
+                    conn.Close();
+
+                    updated = true;
+                }
+
+                return updated;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+            
+        }
+
         //Method for deleting user
         public static void DeleteUser(int user_id)
         {
