@@ -177,7 +177,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         }
 
         // Method for returning list of currently checked out books for the current user
-        public static List<Book> GetCurrentCheckedOutForUser(int id)
+        public static List<(Book, DateTime)> GetCurrentCheckedOutForUser(int id)
         {
             try
             {
@@ -188,7 +188,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 conn.Open();
 
                 // Make command for db
-                NpgsqlCommand cmd = new NpgsqlCommand("SELECT b.Book_id, b.title, b.publisher, b.dev_language, b.date_published " +
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT b.Book_id, b.title, b.publisher, b.dev_language, b.date_published, ch.checked_out_time " +
                       "FROM books as b " +
                       "JOIN checkedout as ch on b.Book_id = ch.Book_id " +
                       "WHERE ch.is_checkedout = true AND ch.User_id = @userId", conn);
@@ -196,7 +196,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 cmd.Prepare();
 
                 // Run command and make list of all checked out books and their values as a Book object
-                List<Book> checkedOutBooks = new List<Book>();
+                List<(Book, DateTime)> checkedOutBooks = new List<(Book, DateTime)>();
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -206,8 +206,9 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                         Convert.ToString(reader["publisher"]),
                         Convert.ToString(reader["dev_language"]),
                         Convert.ToDateTime(reader["date_published"]));
+                    DateTime checkeOutTime = Convert.ToDateTime(reader["checked_out_time"]);
 
-                    checkedOutBooks.Add(checkedOutBook);
+                    checkedOutBooks.Add((checkedOutBook, checkeOutTime));
                 }
 
                 // Close db connection

@@ -1,5 +1,7 @@
 ﻿using CSCI336_FinalProject.CSCI366FinalWork.Objects;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -19,7 +21,28 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             gvCurrentUserInfo.DataBind();
 
             // Load grid view user currently checked out books
-            gvCheckedOutBooks.DataSource = Book.GetCurrentCheckedOutForUser(Users.GetCurrentUserId(Page.User.Identity.Name));
+            List<(Book, DateTime)> checkedOutBooks = Book.GetCurrentCheckedOutForUser(Users.GetCurrentUserId(Page.User.Identity.Name));
+            DataTable dt = new DataTable();
+            dt.Columns.Add(new DataColumn("Book ID", typeof(int)));
+            dt.Columns.Add(new DataColumn("Title", typeof(string)));
+            dt.Columns.Add(new DataColumn("Publisher", typeof(string)));
+            dt.Columns.Add(new DataColumn("Language", typeof(string)));
+            dt.Columns.Add(new DataColumn("Date Published", typeof(DateTime)));
+            dt.Columns.Add(new DataColumn("Checked Out Time", typeof(DateTime)));
+            foreach ((Book, DateTime) checkedOutBook in checkedOutBooks)
+            {
+                var row = dt.NewRow();
+                row[0] = checkedOutBook.Item1.Book_id;
+                row[1] = checkedOutBook.Item1.title;
+                row[2] = checkedOutBook.Item1.publisher;
+                row[3] = checkedOutBook.Item1.dev_language;
+                row[4] = checkedOutBook.Item1.date_published;
+                row[5] = checkedOutBook.Item2;
+
+                dt.Rows.Add(row);
+            }
+
+            gvCheckedOutBooks.DataSource = dt;
             gvCheckedOutBooks.DataBind();
 
             // Get book count
@@ -117,6 +140,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             }
         }
 
-
+        
     }
 }

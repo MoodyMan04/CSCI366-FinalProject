@@ -134,7 +134,7 @@
                 <asp:TextBox ID="tbReturnBook" runat="server"></asp:TextBox>
             </td>
             <td style="height: 43px">
-                <asp:Button ID="btnReturnBook" runat="server" Text="Check Out Book" />
+                <asp:Button ID="btnReturnBook" runat="server" Text="Return Book" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="lblInvalidBookID3" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>
             </td>
         </tr>
