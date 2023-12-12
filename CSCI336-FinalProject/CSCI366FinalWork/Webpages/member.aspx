@@ -90,7 +90,7 @@
                 <asp:TextBox ID="tbFilterAuthor" runat="server"></asp:TextBox>
             </td>
             <td style="height: 49px">
-                <asp:Button ID="btnFilterAuthor" runat="server" Text="Filter By Author" />
+                <asp:Button ID="btnFilterAuthor" runat="server" Text="Filter By Author" OnClick="btnFilterAuthor_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAuthor" runat="server" ForeColor="Red" Text="Invalid Author" Visible="False"></asp:Label>
             </td>
@@ -101,7 +101,7 @@
                 <asp:TextBox ID="tbFilterClass" runat="server" CssClass="offset-sm-0"></asp:TextBox>
             </td>
             <td style="height: 49px">
-                <asp:Button ID="btnFilterClass" runat="server" Text="Filter By Class" />
+                <asp:Button ID="btnFilterClass" runat="server" Text="Filter By Class" OnClick="btnFilterClass_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidClass" runat="server" ForeColor="Red" Text="Invalid Class" Visible="False"></asp:Label>
             </td>

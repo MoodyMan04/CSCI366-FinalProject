@@ -100,11 +100,11 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         {
             try
             {
-                gvLibrary.DataSource = Book.GetBookById(Convert.ToInt32(tbFilterBookID.Text));
+                gvLibrary.DataSource = Book.GetBookById(Convert.ToInt32(tbFilterBookID.Text.Trim()));
                 gvLibrary.DataBind();
                 lblInvalidBookID.Visible = false;
             }
-            catch (Exception ex)
+            catch
             {
                 lblInvalidBookID.Visible = true;
             }
@@ -115,11 +115,11 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         {
             try
             {
-                gvLibrary.DataSource = Book.GetBookByTitle(tbFilterTitle.Text);
+                gvLibrary.DataSource = Book.GetBookByTitle(tbFilterTitle.Text.Trim());
                 gvLibrary.DataBind();
                 lblInvalidTitle.Visible = false;
             }
-            catch (Exception ex)
+            catch
             {
                 lblInvalidTitle.Visible = true;
             }
@@ -130,16 +130,44 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         {
             try
             {
-                gvLibrary.DataSource = Book.GetBookByLanguage(tbFilterLanguage.Text);
+                gvLibrary.DataSource = Book.GetBookByLanguage(tbFilterLanguage.Text.Trim());
                 gvLibrary.DataBind();
                 lblInvalidLanguage.Visible = false;
             }
-            catch (Exception ex)
+            catch
             {
                 lblInvalidLanguage.Visible = true;
             }
         }
 
-        
+        // Method for displaying books that has the provided author lastname
+        protected void btnFilterAuthor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                gvLibrary.DataSource = Book.GetBookByAuthor(tbFilterAuthor.Text.Trim());
+                gvLibrary.DataBind();
+                lblInvalidAuthor.Visible = false;
+            }
+            catch
+            {
+                lblInvalidAuthor.Visible = true;
+            }
+        }
+
+        // Method for displaying books that has the provided class 
+        protected void btnFilterClass_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                gvLibrary.DataSource = Book.GetBookByClass(tbFilterClass.Text.Trim());
+                gvLibrary.DataBind();
+                lblInvalidClass.Visible = false;
+            }
+            catch
+            {
+                lblInvalidClass.Visible = true;
+            }
+        }
     }
 }

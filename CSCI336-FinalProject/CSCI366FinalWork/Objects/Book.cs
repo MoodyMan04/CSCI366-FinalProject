@@ -434,7 +434,84 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
+        }
 
+        // Method for returning list of books that are made by passed author last name
+        public static List<Book> GetBookByAuthor(string author_lastname)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "SELECT books.book_id, books.title, books.publisher, books.dev_language, books.date_published " +
+                    "FROM authoredby " +
+                    "JOIN books on authoredby.book_id = books.book_id " +
+                    "JOIN author on authoredby.author_id = author.author_id " +
+                    "WHERE author.last_name ILIKE @author_lastname";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@author_lastname", '%' + author_lastname + '%');
+                cmd.Prepare();
+
+                List<Book> books = new List<Book>();
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
+                         Convert.ToString(reader["title"]),
+                         Convert.ToString(reader["publisher"]),
+                         Convert.ToString(reader["dev_language"]),
+                         Convert.ToDateTime(reader["date_published"]));
+
+                    books.Add(book);
+                }
+                conn.Close();
+                return books;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for returning list of books that are used by a class
+        public static List<Book> GetBookByClass(string className)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "SELECT books.book_id, books.title, books.publisher, books.dev_language, books.date_published " +
+                    "FROM books " +
+                    "JOIN asscoiatedwith ON books.book_id = asscoiatedwith.book_id " +
+                    "JOIN classes ON asscoiatedwith.class_id = classes.class_id " +
+                    "WHERE class_name ILIKE @className";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@className", '%' + className + '%');
+                cmd.Prepare();
+
+                List<Book> books = new List<Book>();
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
+                         Convert.ToString(reader["title"]),
+                         Convert.ToString(reader["publisher"]),
+                         Convert.ToString(reader["dev_language"]),
+                         Convert.ToDateTime(reader["date_published"]));
+
+                    books.Add(book);
+                }
+                conn.Close();
+                return books;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         /// <summary>
