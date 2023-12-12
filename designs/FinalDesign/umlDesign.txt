@@ -4,8 +4,6 @@ UML:
 		 Connection: Connection
 	o Methods
 		 + GetConnection(): Connection
-		 - SetConnection(): void
-		 - CloseConnection(): void
 - Book
 	o Attributes
 		 Book_id: int
@@ -17,17 +15,40 @@ UML:
 		 + GetBookAll(): List<Book>
 		 + GetBookByTitle(String title): List<Book>
 		 + GetBookByLanguage(String lang): List<Book>
+		 + GetBookByAuthor(String authorLastname): List<Book>
+		 + GetBookByClass(String className): List<Book>
+		 + GetBookByRequiredClass(String className): List<Book>
 		 + GetBookByID(int id): Book
-		 + GetBookLangCount(String lang): int
 		 + GetBookCountAll(): int
+		 + GetCurrentlyCheckedOutUser(): List<(Book, DateTime)>
+		 + GetCheckedOutALl(): List<CheckedOut>
+			• Check isAdmin of current logged in user
+		 + GetCurrentlyCheckedOutAll(): List<CheckedOut>
+			• Check isAdmin of current logged in user
+		 + GetAuthoredByAll(): List<AuthoredBy>
+			• Check isAdmin of current logged in user
+		 + GetAssociatedWithAll(): List<AssociatedWith>
+			• Check isAdmin of current logged in user
+		 + AddAssociatedWith(int bookID, int classID, bool is_required): void
+			• Check isAdmin of current logged in user
+		 + UpdateAssociatedWith(int bookID, int classID, bool is_required): void
+			• Check isAdmin of current logged in user
+		 + DeleteAssociatedWith(int bookID, int classID): void
+			• Check isAdmin of current logged in user
+		 + AddAuthoredBy(int bookID, int authorID): void
+			• Check isAdmin of current logged in user
+		 + DeleteAuthoredBy(int bookID, int authorID): void
+			• Check isAdmin of current logged in user
 		 + AddBook(String title, String publisher, String language, DateTime date_published): void
 			• Check isAdmin of current logged in user
 		 + DeleteBook(int id): void
 			• Check isAdmin of current logged in user
-		 + UpdateBook(int id, String title, String publisher, String language, DateTime date_published): void
+		 + UpdateBook(int id, Book book): void
 			• Check isAdmin of current logged in user
-		 SetReturnDate(DateTime date): void
+		(DOES NOT USE DB)  + SetReturnDate(DateTime date): void
 			• Check isAdmin of current logged in user
+		 CheckOutBook(int bookID): void
+		 ReturnBook(int bookID): void
 - Class
 	o Attributes
 		 Class_id: int
@@ -35,25 +56,22 @@ UML:
 		 Class_description: String
 	o Methods
 		 + GetClassAll(): List<Class>
-		 + GetClassByID(int id): Class
 		 + AddClass(String class_name, String class_desc): void
 			• Check isAdmin of current logged in user
-		 + UpdateClass(int id, String class_name, String class_desc): void
+		 + UpdateClass(int id, Class class): void
 			• Check isAdmin of current logged in user		
 		 + DeleteClass(int id): void
 			• Check isAdmin of current logged in user
-
 - Author
 	o Attributes
 		 Author_id: int
 		 Firstname: String
 		 Lastname: String
 	o Methods
-		 + GetAuthorAll(): List<Author>
-		 + GetAuthorByID(int id): Author
+		(DONE)  + GetAuthorAll(): List<Author>
 		 + AddAuthor(String firstname, String lastname): void
 			• Check isAdmin of current logged in user
-		 + UpdateAuthor(int id, String firstname, String lastname): void
+		 + UpdateAuthor(int id, Author author): void
 			• Check isAdmin of current logged in user
 		 + DeleteAuthor(int id): void
 			• Check isAdmin of current logged in user
@@ -69,12 +87,12 @@ UML:
 	o Methods
 		 GetUserAll(): List<User>
 			• Check isAdmin of current logged in user
-		 GetUserByID(): User
-			• Check isAdmin of current logged in user
+		 GetCurrentUserInfo(): User
+		 GetCurrentUserID(): int
 		 AddUser(String username, String password, String firstname, String lastname, String email Boolean is_admin): void
 			• Check isAdmin of current logged in user
-		 UpdateCurrentUserInfo(String username, String password, String firstname, String lastname, String email): void
-		 UpdateUserInfo(String username, String password, String firstname, String lastname, String email, Boolean is_admin): void
+		 UpdateCurrentUserInfo(int id, String username, String password, String firstname, String lastname, String email): void
+		 UpdateUserInfo(int id, User user): void
 			• Check isAdmin of current logged in user
 		 DeleteUser(int id): void
 			• Check isAdmin of current logged in user

@@ -10,24 +10,26 @@ Functionalities:
 - Read
 	o Admin
 		 Can read users and all books checked out
-		 Which users have overdue books and what specific book it is
 	o User
 		 Every book without a filter
 		 View checked out books
 		 Filter by language, book title, author, required class
-		 How many books of each language
+		 How many books in library
 - Write
 	o Admin
 		 Add users
 		 Add books
 		 Add authors
 		 Add classes
+		 Add association between book and class
+		 Add association between book and author
 - Update
 	o Admin
 		 Update book info
 		 Update classes
 		 Update Authors
-		 Update checked out books
+		 Update required classes to book
+		 Update authors to book
 	o User
 		 Update their user info
 		 Check out a book
@@ -38,6 +40,8 @@ Functionalities:
 		 Delete Authors
 		 Delete users
 		 Delete classes
+		 Delete association between book and class
+		 Delete association between book and author
 
 • Be sure to delete everything from linking tables before deleting from base table
 
