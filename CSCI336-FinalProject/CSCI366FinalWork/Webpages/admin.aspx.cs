@@ -340,6 +340,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             }
         }
 
+        // Method to add AuthoredBy
         protected void btnAddAuthoredBy_Click(object sender, EventArgs e)
         {
             try
@@ -354,6 +355,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             }
         }
 
+        // Method to Delete AuthoredBy
         protected void btnDeleteAuthoredBy_Click(object sender, EventArgs e)
         {
             try
