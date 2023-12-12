@@ -1,33 +1,43 @@
 UML:
 - Database Manager
 	o Attributes
-		(DONE)  Connection: Connection
+		 Connection: Connection
 	o Methods
-		(DONE)  + GetConnection(): Connection
+		 + GetConnection(): Connection
 - Book
 	o Attributes
-		(DONE)  Book_id: int
-		(DONE)  Title: String
-		(DONE)  Publisher: String
-		(DONE)  Language: String
-		(DONE)  Date_Published: DateTime
+		 Book_id: int
+		 Title: String
+		 Publisher: String
+		 Language: String
+		 Date_Published: DateTime
 	o Methods
-		(DONE)  + GetBookAll(): List<Book>
-		(DONE)  + GetBookByTitle(String title): List<Book>
-		(DONE)  + GetBookByLanguage(String lang): List<Book>
-		(DONE)  + GetBookByID(int id): Book
-		(DONE)  + GetBookCountAll(): int
-		(DONE)  + GetCheckedOutALl(): List<(int, int, bool, DateTime)>
+		 + GetBookAll(): List<Book>
+		 + GetBookByTitle(String title): List<Book>
+		 + GetBookByLanguage(String lang): List<Book>
+		 + GetBookByAuthor(String authorLastname): List<Book>
+		 + GetBookByClass(String className): List<Book>
+		 + GetBookByRequiredClass(String className): List<Book>
+		 + GetBookByID(int id): Book
+		 + GetBookCountAll(): int
+		 + GetCurrentlyCheckedOutUser(): List<(Book, DateTime)>
+		 + GetCheckedOutALl(): List<CheckedOut>
 			• Check isAdmin of current logged in user
-		 + GetCurrentlyCheckedOut(): List<(int, int, bool, DateTime)>
+		 + GetCurrentlyCheckedOutAll(): List<CheckedOut>
 			• Check isAdmin of current logged in user
-		(DONE)  + GetAuthoredByAll(): List<(int, int)>
+		 + GetAuthoredByAll(): List<AuthoredBy>
 			• Check isAdmin of current logged in user
-		(DONE)  + GetAssociatedWithAll(): List<(int, int, bool)>
+		 + GetAssociatedWithAll(): List<AssociatedWith>
 			• Check isAdmin of current logged in user
-		(DONE - UNTESTED)  + AddClassRequirement(int bookID, int classID): void
+		 + AddAssociatedWith(int bookID, int classID, bool is_required): void
 			• Check isAdmin of current logged in user
-		 + AddAuthorToBook(int bookID, int authorID): void
+		 + UpdateAssociatedWith(int bookID, int classID, bool is_required): void
+			• Check isAdmin of current logged in user
+		 + DeleteAssociatedWith(int bookID, int classID): void
+			• Check isAdmin of current logged in user
+		 + AddAuthoredBy(int bookID, int authorID): void
+			• Check isAdmin of current logged in user
+		 + DeleteAuthoredBy(int bookID, int authorID): void
 			• Check isAdmin of current logged in user
 		 + AddBook(String title, String publisher, String language, DateTime date_published): void
 			• Check isAdmin of current logged in user
@@ -35,15 +45,17 @@ UML:
 			• Check isAdmin of current logged in user
 		 + UpdateBook(int id, Book book): void
 			• Check isAdmin of current logged in user
-		(DONE - DOES NOT USE DB)  + SetReturnDate(DateTime date): void
+		(DOES NOT USE DB)  + SetReturnDate(DateTime date): void
 			• Check isAdmin of current logged in user
+		 CheckOutBook(int bookID): void
+		 ReturnBook(int bookID): void
 - Class
 	o Attributes
-		(DONE)  Class_id: int
-		(DONE)  Class_name: String
-		(DONE)  Class_description: String
+		 Class_id: int
+		 Class_name: String
+		 Class_description: String
 	o Methods
-		(DONE)  + GetClassAll(): List<Class>
+		 + GetClassAll(): List<Class>
 		 + AddClass(String class_name, String class_desc): void
 			• Check isAdmin of current logged in user
 		 + UpdateClass(int id, Class class): void
@@ -52,9 +64,9 @@ UML:
 			• Check isAdmin of current logged in user
 - Author
 	o Attributes
-		(DONE)  Author_id: int
-		(DONE)  Firstname: String
-		(DONE)  Lastname: String
+		 Author_id: int
+		 Firstname: String
+		 Lastname: String
 	o Methods
 		(DONE)  + GetAuthorAll(): List<Author>
 		 + AddAuthor(String firstname, String lastname): void
@@ -65,16 +77,18 @@ UML:
 			• Check isAdmin of current logged in user
 - User
 	o Attributes
-		(DONE)  User_id: int
-		(DONE)  Username: String
-		(DONE)  Password: String
-		(DONE)  Firstname: String
-		(DONE)  Lastname: String
-		(DONE)  Email: String
-		(DONE)  Is_admin: boolean
+		 User_id: int
+		 Username: String
+		 Password: String
+		 Firstname: String
+		 Lastname: String
+		 Email: String
+		 Is_admin: boolean
 	o Methods
-		(DONE)  GetUserAll(): List<User>
+		 GetUserAll(): List<User>
 			• Check isAdmin of current logged in user
+		 GetCurrentUserInfo(): User
+		 GetCurrentUserID(): int
 		 AddUser(String username, String password, String firstname, String lastname, String email Boolean is_admin): void
 			• Check isAdmin of current logged in user
 		 UpdateCurrentUserInfo(int id, String username, String password, String firstname, String lastname, String email): void
@@ -82,7 +96,5 @@ UML:
 			• Check isAdmin of current logged in user
 		 DeleteUser(int id): void
 			• Check isAdmin of current logged in user
-		 CheckOutBook(int bookID): void
-		 ReturnBook(int bookID): void
 
 NOTE: Although the methods will be divided into their respective classes, the methods will be accessed by either the User page of Admin page by calling the appropriate classes method.
