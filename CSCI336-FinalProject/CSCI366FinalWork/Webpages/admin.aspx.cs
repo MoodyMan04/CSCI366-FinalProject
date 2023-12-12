@@ -304,7 +304,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             }
             catch
             {
-                lblInvalidAuthorInfo.Visible = true;
+                lblInvalidClassInfo.Visible = true;
             }
         }
 
@@ -340,7 +340,32 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
             }
         }
 
-        
+        protected void btnAddAuthoredBy_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book.AddAuthoredBy(Convert.ToInt32(tbAuthorByAuthorID.Text.Trim()), Convert.ToInt32(tbAuthoredByBookID.Text.Trim()));
+                lblInvalidAuthoredByInfo.Visible = false;
+                UpdateAuthoredByGV();
+            }
+            catch
+            {
+                lblInvalidAuthoredByInfo.Visible = true;
+            }
+        }
 
+        protected void btnDeleteAuthoredBy_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book.DeleteAuthoredBy(Convert.ToInt32(tbAuthorByAuthorID.Text.Trim()), Convert.ToInt32(tbAuthoredByBookID.Text.Trim()));
+                lblInvalidAuthoredByInfo2.Visible = false;
+                UpdateAuthoredByGV();
+            }
+            catch
+            {
+                lblInvalidAuthoredByInfo2.Visible = true;
+            }
+        }
     }
 }

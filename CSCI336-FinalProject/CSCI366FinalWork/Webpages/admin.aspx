@@ -490,16 +490,14 @@
                 Book ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbAuthoredByBookID" runat="server"></asp:TextBox>
                 <br />
-                <asp:Button ID="btnAddAuthoredBy" runat="server" Text="Add Authored By" />
+                <asp:Button ID="btnAddAuthoredBy" runat="server" Text="Add Authored By" OnClick="btnAddAuthoredBy_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAuthoredByInfo" runat="server" ForeColor="Red" Text="Invalid Authored By Info" Visible="False"></asp:Label>
                 <br />
-                <asp:Button ID="btnUpdateAuthoredBy" runat="server" Text="Update Authored By" />
-&nbsp;<asp:Label ID="lblInvalidAuthoredByInfo2" runat="server" ForeColor="Red" Text="Invalid Authored By Info" Visible="False"></asp:Label>
-                <br />
-                <asp:Button ID="btnDeleteAuthoredBy" runat="server" Text="Delete Authored By" />
+&nbsp;<br />
+                <asp:Button ID="btnDeleteAuthoredBy" runat="server" Text="Delete Authored By" OnClick="btnDeleteAuthoredBy_Click" />
 &nbsp;
-                <asp:Label ID="lblInvalidAuthoredByInfo3" runat="server" ForeColor="Red" Text="Invalid Authored By Info" Visible="False"></asp:Label>
+                <asp:Label ID="lblInvalidAuthoredByInfo2" runat="server" ForeColor="Red" Text="Invalid Authored By Info" Visible="False"></asp:Label>
             </td>
             <td style="height: 247px"></td>
         </tr>

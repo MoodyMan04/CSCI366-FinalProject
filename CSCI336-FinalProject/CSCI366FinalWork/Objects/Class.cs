@@ -126,7 +126,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             }
         }
 
-        // Method for updating an Class
+        // Method for updating a Class
         public static void UpdateClass(string class_name, string class_description, int class_id)
         {
             try
@@ -151,7 +151,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             }
         }
 
-            // Method for deleting an Class
+            // Method for deleting a Class
             public static void DeleteClass(int Class_id)
         {
             try

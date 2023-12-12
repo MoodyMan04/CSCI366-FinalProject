@@ -852,24 +852,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Label lblInvalidAuthoredByInfo;
 
         /// <summary>
-        /// btnUpdateAuthoredBy control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdateAuthoredBy;
-
-        /// <summary>
-        /// lblInvalidAuthoredByInfo2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInvalidAuthoredByInfo2;
-
-        /// <summary>
         /// btnDeleteAuthoredBy control.
         /// </summary>
         /// <remarks>
@@ -879,13 +861,13 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Button btnDeleteAuthoredBy;
 
         /// <summary>
-        /// lblInvalidAuthoredByInfo3 control.
+        /// lblInvalidAuthoredByInfo2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInvalidAuthoredByInfo3;
+        protected global::System.Web.UI.WebControls.Label lblInvalidAuthoredByInfo2;
 
         /// <summary>
         /// lblReturnDate control.

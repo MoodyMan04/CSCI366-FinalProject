@@ -567,5 +567,51 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 throw new Exception(ex.Message, ex);
             }
         }
+
+        public static void AddAuthoredBy(int author_id, int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "INSERT INTO authoredby (author_id, book_id) VALUES (@author_id, @book_id)";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Parameters.AddWithValue("@author_id", author_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for deleting an AuthoredBy
+        public static void DeleteAuthoredBy(int author_id, int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "DELETE FROM authoredby WHERE author_id = @author_id AND book_id = @book_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@author_id", author_id);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }
