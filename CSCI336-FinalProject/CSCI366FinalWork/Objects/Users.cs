@@ -1,8 +1,6 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 {
@@ -17,45 +15,101 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         public string username { get; private set; }
         public string password { get; private set; }
 
+        // Constructor method
+        public Users(int user_id, string first_name, string last_name, bool is_admin, string email, string username, string password)
+        {
+            User_id = user_id;
+            this.first_name = first_name;
+            this.last_name = last_name;
+            is_Admin = is_Admin;
+            this.email = email;
+            this.username = username;
+            this.password = password;
+        }
+
+        // Constructor method for log in
+        public Users(bool is_admin, string password)
+        {
+            is_Admin = is_admin;
+            this.password = password;
+        }
+
         // SQL Methods
-        // REST OF SQL METHODS FOR USER CLASS ADDED HERE
 
         // Method to validate login for user
         public static int Login(string username, string password)
         {
-            // Get connection to db
-            NpgsqlConnection conn = DatabaseManager.GetConnection();
-
-            // Open connection
-            conn.Open();
-
-            // Create command to get password and is_Admin
-            string query = "SELECT password, is_Admin FROM users WHERE username = @username";
-            NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@username", username);
-            cmd.Prepare();
-
-            // Get data out of reader
-            NpgsqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-
-            Users user = new Users();
-            user.password = Convert.ToString(reader["password"]);
-            user.is_Admin = Convert.ToBoolean(reader["is_Admin"]);
-
-            // Close connection
-            conn.Close();
-
-            // Check if user can login
-            if (password == user.password)
+            try
             {
-                if (user.is_Admin)
-                    return 2;
-                else 
-                    return 1; 
+                // Get connection to db
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection
+                conn.Open();
+
+                // Create command to get password and is_Admin
+                string query = "SELECT password, is_Admin FROM users WHERE username = @username";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Prepare();
+
+                // Get data out of reader
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+
+                Users user = new Users(Convert.ToBoolean(reader["is_Admin"]), Convert.ToString(reader["password"]));
+
+                // Close connection
+                conn.Close();
+
+                // Check if user can login
+                if (password == user.password)
+                {
+                    if (user.is_Admin)
+                        return 2;
+                    else
+                        return 1;
+                }
+                else
+                    return 0;
             }
-            else
+            catch
+            {
                 return 0;
+            }
+        }
+
+        // Method for checking if the current user is an admin
+        public static bool CheckUserAdmin(string username)
+        {
+            try
+            {
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT is_Admin FROM users WHERE username = @username", conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Prepare();
+
+                // Run command grab is_admin
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+
+                bool is_Admin = Convert.ToBoolean(reader["is_Admin"]);
+                // Close db connection
+                conn.Close();
+
+                // Return if user is an admin
+                return is_Admin;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         // Method for returning list of users (ADMIN ONLY)
@@ -78,14 +132,14 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Users user = new Users();
-                    user.User_id = Convert.ToInt32(reader["User_id"]);
-                    user.first_name = Convert.ToString(reader["first_name"]);
-                    user.last_name = Convert.ToString(reader["last_name"]);
-                    user.is_Admin = Convert.ToBoolean(reader["is_Admin"]);
-                    user.username = Convert.ToString(reader["username"]);
                     // Admin should NOT know everyone's passwords
-                    user.password = "****";
+                    Users user = new Users(Convert.ToInt32(reader["User_id"]),
+                        Convert.ToString(reader["first_name"]),
+                        Convert.ToString(reader["last_name"]),
+                        Convert.ToBoolean(reader["is_Admin"]),
+                        Convert.ToString(reader["email"]),
+                        Convert.ToString(reader["username"]),
+                        "****");
 
                     users.Add(user);
                 }
@@ -94,6 +148,35 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
                 // Return list of users
                 return users;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        /// <summary>
+        /// method to fetch the id of the currect.
+        /// </summary>
+        /// <param name="username"> username of the current user. </param>
+        /// <returns></returns>
+        /// <exception cref="Exception"> if any SQL exception is thrown </exception>
+        public static int GetCurrentUserId(string username)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "SELECT User_id FROM Users WHERE username = @username";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Prepare();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+
+                return Convert.ToInt32(reader["User_id"]);
             }
             catch (Exception ex)
             {
@@ -124,16 +207,14 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
                 while (reader.Read())
                 {
-                    Users user = new Users();
-                    // Do not allow current user to see own id
-                    user.User_id = 0;
-                    user.first_name = Convert.ToString(reader["first_name"]);
-                    user.last_name = Convert.ToString(reader["last_name"]);
-                    user.is_Admin = Convert.ToBoolean(reader["is_Admin"]);
-                    user.email = Convert.ToString(reader["email"]);
-                    user.username = Convert.ToString(reader["username"]);
-                    // Do not display current user's password
-                    user.password = "****";
+                    // Do not allow current user to see own id or password
+                    Users user = new Users(0,
+                        Convert.ToString(reader["first_name"]),
+                        Convert.ToString(reader["last_name"]),
+                        Convert.ToBoolean(reader["is_Admin"]),
+                        Convert.ToString(reader["email"]),
+                        Convert.ToString(reader["username"]),
+                        "****");
 
                     users.Add(user);
                 }
@@ -143,6 +224,141 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 
                 // Return user
                 return users;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for adding user
+        public static void AddUser(string first_name, string last_name, Boolean is_admin, string email, string username, string password)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "INSERT INTO users (first_name, last_name, is_admin, email, username, password) VALUES(@first_name, @last_name, @is_admin, @email, @username, @password)";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@first_name", first_name);
+                cmd.Parameters.AddWithValue("@last_name", last_name);
+                cmd.Parameters.AddWithValue("@is_admin", is_admin);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        //Method for updating user
+        public static void UpdateUser(string first_name, string last_name, Boolean is_admin, string email, string username, string password, int user_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "UPDATE users SET first_name = @first_name, last_name = @last_name, is_admin = @is_admin, email = @email, username = @username, password = @password WHERE user_id = @user_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@first_name", first_name);
+                cmd.Parameters.AddWithValue("@last_name", last_name);
+                cmd.Parameters.AddWithValue("@is_admin", is_admin);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
+                cmd.Parameters.AddWithValue("@user_id", user_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method to update user info
+        public static bool UpdateCurrentUserInfo(int user_id, string firstname, string lastname, string email, string username, string currentPassword, string newPassword)
+        {
+            try
+            {
+                bool updated = false;
+
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                // Query to get user's password
+                string passwordQuery = "SELECT password FROM users WHERE user_id = @user_id";
+                NpgsqlCommand cmd = new NpgsqlCommand(passwordQuery, conn);
+                cmd.Parameters.AddWithValue("@user_id", user_id);
+                cmd.Prepare();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+
+                string userPassword = Convert.ToString(reader["password"]);
+
+                conn.Close();
+                
+
+                // Query to update user if current password matches
+                if (userPassword.Trim() == currentPassword.Trim())
+                {
+                    conn.Open();
+
+                    string updateQuery = "UPDATE users SET first_name = @firstname, last_name = @lastname, " +
+                    "email = @email, username = @username, password = @newPassword WHERE user_id = @user_id;";
+                    NpgsqlCommand cmd2 = new NpgsqlCommand(updateQuery, conn);
+                    cmd2.Parameters.AddWithValue("@firstname", firstname);
+                    cmd2.Parameters.AddWithValue("@lastname", lastname);
+                    cmd2.Parameters.AddWithValue("@email", email);
+                    cmd2.Parameters.AddWithValue("@username", username);
+                    cmd2.Parameters.AddWithValue("@newPassword", newPassword);
+                    cmd2.Parameters.AddWithValue("@user_id", user_id);
+                    cmd2.Prepare();
+
+                    cmd2.ExecuteNonQuery();
+                    conn.Close();
+
+                    updated = true;
+                }
+
+                return updated;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+            
+        }
+
+        //Method for deleting user
+        public static void DeleteUser(int user_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "DELETE FROM checkedout WHERE user_id = @user_id; DELETE FROM users WHERE user_id = @user_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@user_id", user_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
             }
             catch (Exception ex)
             {

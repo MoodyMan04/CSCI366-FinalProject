@@ -150,22 +150,22 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.TextBox tbBookLanguage;
 
         /// <summary>
-        /// tbUserIsAdmin control.
+        /// chkUserIsAdmin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbUserIsAdmin;
+        protected global::System.Web.UI.WebControls.CheckBox chkUserIsAdmin;
 
         /// <summary>
-        /// tbDatePublished control.
+        /// tbBookDatePublished control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDatePublished;
+        protected global::System.Web.UI.WebControls.TextBox tbBookDatePublished;
 
         /// <summary>
         /// tbUserEmail control.
@@ -222,13 +222,13 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Button btnAddUser;
 
         /// <summary>
-        /// Label3 control.
+        /// lblInvalidUserInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label lblInvalidUserInfo;
 
         /// <summary>
         /// lblUpdateDeleteBook control.
@@ -600,15 +600,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.CheckBox cbDisplayCheckedOutBooks;
 
         /// <summary>
-        /// lblCheckedOutInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCheckedOutInfo;
-
-        /// <summary>
         /// lblAssociatedWithInfo control.
         /// </summary>
         /// <remarks>
@@ -616,15 +607,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAssociatedWithInfo;
-
-        /// <summary>
-        /// tbCheckedOutUserID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbCheckedOutUserID;
 
         /// <summary>
         /// tbAssociatedWithClassID control.
@@ -636,15 +618,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.TextBox tbAssociatedWithClassID;
 
         /// <summary>
-        /// tbCheckedOutBookID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbCheckedOutBookID;
-
-        /// <summary>
         /// tbAssociatedWithBookID control.
         /// </summary>
         /// <remarks>
@@ -654,49 +627,13 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.TextBox tbAssociatedWithBookID;
 
         /// <summary>
-        /// ddlIsCheckedOut control.
+        /// chkIsRequired control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlIsCheckedOut;
-
-        /// <summary>
-        /// ddlIsRequired control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlIsRequired;
-
-        /// <summary>
-        /// tbCheckOutTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbCheckOutTime;
-
-        /// <summary>
-        /// btnAddCheckedOut control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddCheckedOut;
-
-        /// <summary>
-        /// lblInvalidCheckedOutInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInvalidCheckedOutInfo;
+        protected global::System.Web.UI.WebControls.CheckBox chkIsRequired;
 
         /// <summary>
         /// btnAddAssociatedWith control.
@@ -717,24 +654,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Label lblInvalidAssociationInfo;
 
         /// <summary>
-        /// btnUpdateCheckedOut control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdateCheckedOut;
-
-        /// <summary>
-        /// lblInvalidCheckedOutInfo2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInvalidCheckedOutInfo2;
-
-        /// <summary>
         /// btnUpdateAssociatedWith control.
         /// </summary>
         /// <remarks>
@@ -751,24 +670,6 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblInvalidAssociationInfo2;
-
-        /// <summary>
-        /// btnDeleteCheckedOut control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDeleteCheckedOut;
-
-        /// <summary>
-        /// lblInvalidCheckedOutInfo3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInvalidCheckedOutInfo3;
 
         /// <summary>
         /// btnDeleteAssociatedWith control.

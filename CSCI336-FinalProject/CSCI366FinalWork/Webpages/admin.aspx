@@ -96,13 +96,13 @@
                 <asp:TextBox ID="tbBookLanguage" runat="server"></asp:TextBox>
             </td>
             <td>Is Admin:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:TextBox ID="tbUserIsAdmin" runat="server"></asp:TextBox>
+                <asp:CheckBox ID="chkUserIsAdmin" runat="server" Text="Is Admin?" />
             </td>
         </tr>
         <tr>
             <td style="width: 233px">Date Published:</td>
             <td style="width: 356px">
-                <asp:TextBox ID="tbDatePublished" runat="server"></asp:TextBox>
+                <asp:TextBox ID="tbBookDatePublished" runat="server"></asp:TextBox>
             </td>
             <td>Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbUserEmail" runat="server"></asp:TextBox>
@@ -110,7 +110,7 @@
         </tr>
         <tr>
             <td style="width: 233px">
-                <asp:Button ID="btnAddBook" runat="server" Text="Add Book" />
+                <asp:Button ID="btnAddBook" runat="server" Text="Add Book" OnClick="btnAddBook_Click" />
             </td>
             <td style="width: 356px">
                 <asp:Label ID="lblInvalidBookInfo" runat="server" ForeColor="Red" Text="Invalid Book Info" Visible="False"></asp:Label>
@@ -134,9 +134,9 @@
             <td style="width: 358px">
                 &nbsp;</td>
             <td>
-                <asp:Button ID="btnAddUser" runat="server" Text="Add User" />
+                <asp:Button ID="btnAddUser" runat="server" Text="Add User" OnClick="btnAddUser_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label3" runat="server" ForeColor="Red" Text="Invalid User Info" Visible="False"></asp:Label>
+                <asp:Label ID="lblInvalidUserInfo" runat="server" ForeColor="Red" Text="Invalid User Info" Visible="False"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -163,26 +163,26 @@
         </tr>
         <tr>
             <td style="width: 230px; height: 49px">
-                <asp:Button ID="btnUpdateBook" runat="server" Text="Update Book" />
+                <asp:Button ID="btnUpdateBook" runat="server" Text="Update Book" OnClick="btnUpdateBook_Click" />
             </td>
             <td style="width: 359px; height: 49px">
                 <asp:Label ID="lblInvalidBookInfo2" runat="server" ForeColor="Red" Text="Invalid Book Info" Visible="False"></asp:Label>
             </td>
             <td style="height: 49px">
-                <asp:Button ID="btnUpdateUser" runat="server" Text="Update User" />
+                <asp:Button ID="btnUpdateUser" runat="server" Text="Update User" OnClick="btnUpdateUser_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidUserInfo2" runat="server" ForeColor="Red" Text="Invalid User ID" Visible="False"></asp:Label>
             </td>
         </tr>
         <tr>
             <td style="width: 230px">
-                <asp:Button ID="btnDeleteBook" runat="server" Text="Delete Book" />
+                <asp:Button ID="btnDeleteBook" runat="server" Text="Delete Book" OnClick="btnDeleteBook_Click" />
             </td>
             <td style="width: 359px">
                 <asp:Label ID="lblInvalidBookID" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnDeleteUser" runat="server" Text="Delete User" />
+                <asp:Button ID="btnDeleteUser" runat="server" Text="Delete User" OnClick="btnDeleteUser_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidUserID" runat="server" ForeColor="Red" Text="Invalid User ID" Visible="False"></asp:Label>
             </td>
@@ -263,13 +263,13 @@
         </tr>
         <tr>
             <td style="width: 240px">
-                <asp:Button ID="btnAddAuthor" runat="server" Text="Add Author" />
+                <asp:Button ID="btnAddAuthor" runat="server" Text="Add Author" OnClick="btnAddAuthor_Click" />
             </td>
             <td style="width: 350px">
                 <asp:Label ID="lblInvalidAuthorInfo" runat="server" ForeColor="Red" Text="Invalid Author Info" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnAddClass" runat="server" Text="Add Class" />
+                <asp:Button ID="btnAddClass" runat="server" Text="Add Class" OnClick="btnAddClass_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidClassInfo" runat="server" ForeColor="Red" Text="Invalid Class Info" Visible="False"></asp:Label>
             </td>
@@ -287,26 +287,26 @@
         </tr>
         <tr>
             <td style="width: 240px">
-                <asp:Button ID="btnUpdateAuthor" runat="server" Text="Update Author" />
+                <asp:Button ID="btnUpdateAuthor" runat="server" Text="Update Author" OnClick="btnUpdateAuthor_Click" />
             </td>
             <td style="width: 351px">
                 <asp:Label ID="lblInvalidAuthorInfo2" runat="server" ForeColor="Red" Text="Invalid Author Info" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnUpdateClass" runat="server" Text="Update Class" />
+                <asp:Button ID="btnUpdateClass" runat="server" Text="Update Class" OnClick="btnUpdateClass_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidClassInfo2" runat="server" ForeColor="Red" Text="Invalid Class Info" Visible="False"></asp:Label>
             </td>
         </tr>
         <tr>
             <td style="width: 240px">
-                <asp:Button ID="btnDeleteAuthor" runat="server" Text="Delete Author" />
+                <asp:Button ID="btnDeleteAuthor" runat="server" Text="Delete Author" OnClick="btnDeleteAuthor_Click" />
             </td>
             <td style="width: 351px">
                 <asp:Label ID="lblInvalidAuthorID" runat="server" ForeColor="Red" Text="Invalid Author ID" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnDeleteClass" runat="server" Text="Delete Class" />
+                <asp:Button ID="btnDeleteClass" runat="server" Text="Delete Class" OnClick="btnDeleteClass_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidClassID" runat="server" ForeColor="Red" Text="Invalid Class ID" Visible="False"></asp:Label>
             </td>
@@ -358,7 +358,7 @@
         </tr>
         <tr>
             <td style="width: 593px">
-                <asp:CheckBox ID="cbDisplayCheckedOutBooks" runat="server" Text="Display only currently checked out books" />
+                <asp:CheckBox ID="cbDisplayCheckedOutBooks" runat="server" Text="Display only currently checked out books" AutoPostBack="True" OnCheckedChanged="cbDisplayCheckedOutBooks_CheckedChanged" />
             </td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -367,27 +367,24 @@
     <table style="width:100%;">
         <tr>
             <td style="width: 309px">
-                <asp:Label ID="lblCheckedOutInfo" runat="server" Font-Bold="True" Font-Size="Medium" Text="Checked Out Info:"></asp:Label>
-            </td>
+                &nbsp;</td>
             <td style="width: 281px">&nbsp;</td>
             <td>
                 <asp:Label ID="lblAssociatedWithInfo" runat="server" Font-Bold="True" Font-Size="Medium" Text="Associated With Info:"></asp:Label>
             </td>
         </tr>
         <tr>
-            <td style="width: 309px">User ID:</td>
+            <td style="width: 309px">&nbsp;</td>
             <td style="width: 281px">
-                <asp:TextBox ID="tbCheckedOutUserID" runat="server"></asp:TextBox>
-            </td>
+                &nbsp;</td>
             <td>Class ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbAssociatedWithClassID" runat="server"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td style="width: 309px">Book ID:</td>
+            <td style="width: 309px">&nbsp;</td>
             <td style="width: 281px">
-                <asp:TextBox ID="tbCheckedOutBookID" runat="server"></asp:TextBox>
-            </td>
+                &nbsp;</td>
             <td>Book ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbAssociatedWithBookID" runat="server"></asp:TextBox>
             </td>
@@ -395,35 +392,25 @@
     </table>
     <table style="width:100%;">
         <tr>
-            <td style="height: 41px; width: 310px">Is Checked Out:</td>
+            <td style="height: 41px; width: 310px">&nbsp;</td>
             <td style="height: 41px; width: 280px">
-                <asp:DropDownList ID="ddlIsCheckedOut" runat="server" style="margin-left: 50">
-                    <asp:ListItem>True</asp:ListItem>
-                    <asp:ListItem>False</asp:ListItem>
-                </asp:DropDownList>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td style="height: 41px">Is Required:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:DropDownList ID="ddlIsRequired" runat="server">
-                    <asp:ListItem>True</asp:ListItem>
-                    <asp:ListItem>False</asp:ListItem>
-                </asp:DropDownList>
+                <asp:CheckBox ID="chkIsRequired" runat="server" Text="Is Required?" />
             </td>
         </tr>
         <tr>
-            <td style="width: 310px">Checked Out Time:</td>
+            <td style="width: 310px">&nbsp;</td>
             <td style="width: 280px">
-                <asp:TextBox ID="tbCheckOutTime" runat="server"></asp:TextBox>
-            </td>
+                &nbsp;</td>
             <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
         </tr>
         <tr>
             <td style="width: 310px">
-                <asp:Button ID="btnAddCheckedOut" runat="server" Text="Add Checked Out" />
-            </td>
-            <td style="width: 280px">&nbsp;<asp:Label ID="lblInvalidCheckedOutInfo" runat="server" ForeColor="Red" Text="Invalid Checked Out Info" Visible="False"></asp:Label>
-            </td>
+                &nbsp;</td>
+            <td style="width: 280px">&nbsp;</td>
             <td>
-                <asp:Button ID="btnAddAssociatedWith" runat="server" Text="Add Association" />
+                <asp:Button ID="btnAddAssociatedWith" runat="server" Text="Add Association" OnClick="btnAddAssociatedWith_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAssociationInfo" runat="server" ForeColor="Red" Text="Invalid Association Info" Visible="False"></asp:Label>
             </td>
@@ -432,36 +419,27 @@
     <table style="width:100%;">
         <tr>
             <td style="width: 310px">
-                <asp:Button ID="btnUpdateCheckedOut" runat="server" Text="Update Checked Out" />
-            </td>
+                &nbsp;</td>
             <td style="width: 279px">
-                <asp:Label ID="lblInvalidCheckedOutInfo2" runat="server" ForeColor="Red" Text="Invalid Checked Out Info" Visible="False"></asp:Label>
-            </td>
+                &nbsp;</td>
             <td>
-                <asp:Button ID="btnUpdateAssociatedWith" runat="server" Text="Update Association" />
+                <asp:Button ID="btnUpdateAssociatedWith" runat="server" Text="Update Association" OnClick="btnUpdateAssociatedWith_Click" />
 &nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAssociationInfo2" runat="server" ForeColor="Red" Text="Invalid Association Info" Visible="False"></asp:Label>
             </td>
         </tr>
         <tr>
             <td style="width: 310px">
-                <asp:Button ID="btnDeleteCheckedOut" runat="server" Text="Delete Checked Out" />
-            </td>
+                &nbsp;</td>
             <td style="width: 279px">
-                <asp:Label ID="lblInvalidCheckedOutInfo3" runat="server" ForeColor="Red" Text="Invalid Checked Out Info" Visible="False"></asp:Label>
-            </td>
+                &nbsp;</td>
             <td>
-                <asp:Button ID="btnDeleteAssociatedWith" runat="server" Text="Delete Association" />
+                <asp:Button ID="btnDeleteAssociatedWith" runat="server" Text="Delete Association" OnClick="btnDeleteAssociatedWith_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAssociationInfo3" runat="server" ForeColor="Red" Text="Invalid Association Info" Visible="False"></asp:Label>
             </td>
         </tr>
-        <tr>
-            <td style="width: 310px">&nbsp;</td>
-            <td style="width: 279px">&nbsp;</td>
-            <td>&nbsp;</td>
-        </tr>
-    </table>
+        </table>
     <br />
     <table style="width:100%;">
         <tr>
@@ -472,7 +450,7 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 592px">
+            <td style="width: 592px; height: 247px;">
                 <asp:GridView ID="gvAuthoredBy" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
                     <AlternatingRowStyle BackColor="White" />
                     <EditRowStyle BackColor="#2461BF" />
@@ -487,7 +465,7 @@
                     <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 </asp:GridView>
             </td>
-            <td>
+            <td style="height: 247px">
                 <asp:Label ID="lblAuthoredByInfo" runat="server" Font-Bold="True" Text="Authored By Info:"></asp:Label>
                 <br />
                 Author ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -496,15 +474,16 @@
                 Book ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:TextBox ID="tbAuthoredByBookID" runat="server"></asp:TextBox>
                 <br />
-                <asp:Button ID="btnAddAuthoredBy" runat="server" Text="Add Authored By" />
+                <asp:Button ID="btnAddAuthoredBy" runat="server" Text="Add Authored By" OnClick="btnAddAuthoredBy_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAuthoredByInfo" runat="server" ForeColor="Red" Text="Invalid Authored By Info" Visible="False"></asp:Label>
                 <br />
-                <asp:Button ID="btnDeleteAuthoredBy" runat="server" Text="Delete Authored By" />
+&nbsp;<br />
+                <asp:Button ID="btnDeleteAuthoredBy" runat="server" Text="Delete Authored By" OnClick="btnDeleteAuthoredBy_Click" />
 &nbsp;
                 <asp:Label ID="lblInvalidAuthoredByInfo2" runat="server" ForeColor="Red" Text="Invalid Authored By Info" Visible="False"></asp:Label>
             </td>
-            <td>&nbsp;</td>
+            <td style="height: 247px"></td>
         </tr>
         <tr>
             <td style="width: 592px">&nbsp;</td>

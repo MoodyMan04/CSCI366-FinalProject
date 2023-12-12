@@ -3,7 +3,7 @@
     <table class="w-100">
         <tr>
             <td style="width: 586px; height: 29px">&nbsp;<asp:Label ID="lblWelcome" runat="server" Font-Size="Large" Text="Welcome, "></asp:Label>
-                <asp:LoginName ID="LoginName1" runat="server" Font-Size="Large" style="color: #0000FF" />
+                <asp:Label ID="lblUserName" runat="server" Font-Bold="True" ForeColor="Blue" Text="userName"></asp:Label>
             </td>
             <td class="text-end" style="height: 29px">
                 <asp:LoginStatus ID="LoginStatus1" runat="server" Font-Size="Large" LogoutText="Log Out" OnLoggingOut="LoginStatus1_LoggingOut" />
@@ -90,23 +90,25 @@
                 <asp:TextBox ID="tbFilterAuthor" runat="server"></asp:TextBox>
             </td>
             <td style="height: 49px">
-                <asp:Button ID="btnFilterAuthor" runat="server" Text="Filter By Author" />
+                <asp:Button ID="btnFilterAuthor" runat="server" Text="Filter By Author" OnClick="btnFilterAuthor_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAuthor" runat="server" ForeColor="Red" Text="Invalid Author" Visible="False"></asp:Label>
             </td>
         </tr>
         <tr>
-            <td style="width: 209px; height: 49px">Required Class:</td>
+            <td style="width: 209px; height: 49px">Class:</td>
             <td style="width: 297px; height: 49px">
                 <asp:TextBox ID="tbFilterClass" runat="server" CssClass="offset-sm-0"></asp:TextBox>
             </td>
             <td style="height: 49px">
-                <asp:Button ID="btnFilterClass" runat="server" Text="Filter By Class" />
+                <asp:Button ID="btnFilterClass" runat="server" Text="Filter By Class" OnClick="btnFilterClass_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidClass" runat="server" ForeColor="Red" Text="Invalid Class" Visible="False"></asp:Label>
             </td>
         </tr>
     </table>
+    <asp:CheckBox ID="cbIsRequired" runat="server" Text="Only Required Books" />
+    <br />
     (class name will be class designation - number ex: CSCI-160)<br />
     <br />
     <asp:Label ID="lblCheckOutBook" runat="server" Font-Bold="True" Font-Size="Large" Text="Check Out Book:"></asp:Label>
@@ -118,7 +120,7 @@
                 <asp:TextBox ID="tbCheckOutBook" runat="server"></asp:TextBox>
             </td>
             <td style="height: 43px">
-                <asp:Button ID="btnCheckOutBook" runat="server" Text="Check Out Book" />
+                <asp:Button ID="btnCheckOutBook" runat="server" Text="Check Out Book" OnClick="btnCheckOutBook_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidBookID2" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>
             </td>
@@ -134,7 +136,7 @@
                 <asp:TextBox ID="tbReturnBook" runat="server"></asp:TextBox>
             </td>
             <td style="height: 43px">
-                <asp:Button ID="btnReturnBook" runat="server" Text="Check Out Book" />
+                <asp:Button ID="btnReturnBook" runat="server" Text="Return Book" OnClick="btnReturnBook_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="lblInvalidBookID3" runat="server" ForeColor="Red" Text="Invalid Book ID" Visible="False"></asp:Label>
             </td>
         </tr>
@@ -156,7 +158,7 @@
         <SortedDescendingHeaderStyle BackColor="#4870BE" />
     </asp:GridView>
     <br />
-    <asp:Label ID="lblUdpateUserInfo" runat="server" Font-Bold="True" Font-Size="Large" Text="Update User Info:"></asp:Label>
+    <asp:Label ID="lblUpdateUserInfo" runat="server" Font-Bold="True" Font-Size="Large" Text="Update User Info:"></asp:Label>
     <br />
     Current User Info:<br />
     <asp:GridView ID="gvCurrentUserInfo" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowDataBound="gvCurrentUserInfo_RowDataBound">
@@ -208,7 +210,9 @@
             <td style="width: 307px">
                 <asp:TextBox ID="tbUserCurrentPassword" runat="server"></asp:TextBox>
             </td>
-            <td>&nbsp;</td>
+            <td>
+                <asp:Label ID="lblInvalidCurrentPassword" runat="server" ForeColor="Red" Text="Current Password Is Incorrect" Visible="False"></asp:Label>
+            </td>
         </tr>
         <tr>
             <td style="width: 298px">
@@ -222,15 +226,17 @@
     <table style="width:100%;">
         <tr>
             <td style="width: 299px">
-                <asp:Button ID="btnUpdateUserInfo" runat="server" Text="Update Info" />
+                <asp:Button ID="btnUpdateUserInfo" runat="server" Text="Update Info" OnClick="btnUpdateUserInfo_Click" />
             </td>
             <td style="width: 306px">
-                <asp:Label ID="lblInvalidInfo" runat="server" Font-Bold="False" ForeColor="Red" Text="Invalid Info" Visible="False"></asp:Label>
+                <asp:Label ID="lblInvalidInfo" runat="server" Font-Bold="False" ForeColor="Red" Text="Invalid Info Provided" Visible="False"></asp:Label>
             </td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="width: 299px">&nbsp;</td>
+            <td style="width: 299px">
+                <asp:Label ID="lblUserUpdated" runat="server" ForeColor="#009933" Text="Info Updated!" Visible="False"></asp:Label>
+            </td>
             <td style="width: 306px">&nbsp;</td>
             <td>&nbsp;</td>
         </tr>

@@ -1,8 +1,6 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 {
@@ -12,6 +10,14 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         public int Class_id { get; private set; }
         public string class_name { get; private set; }
         public string class_description { get; private set; }
+
+        // Constructor method
+        public Class(int class_id,  string class_name, string class_description)
+        {
+            Class_id = class_id;
+            this.class_name = class_name;
+            this.class_description = class_description;
+        }
 
         // SQL Methods
 
@@ -35,10 +41,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Class class1 = new Class();
-                    class1.Class_id = Convert.ToInt32(reader["Class_id"]);
-                    class1.class_name = Convert.ToString(reader["class_name"]);
-                    class1.class_description = Convert.ToString(reader["class_description"]);
+                    Class class1 = new Class(
+                        Convert.ToInt32(reader["Class_id"]),
+                        Convert.ToString(reader["class_name"]),
+                        Convert.ToString(reader["class_description"]));
 
                     classes.Add(class1);
                 }
@@ -53,5 +59,120 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 throw new Exception(ex.Message, ex);
             }
         }
+
+        /// <summary>
+        /// fetches Class by passes in Id.
+        /// </summary>
+        /// <param name="id"> the id of the specified book </param>
+        /// <returns> a list of class objects </returns>
+        /// <exception cref="Exception"> if there is a issue with fetching class</exception>
+        public static List<Class> getClassByID(int id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                conn.Open();
+                string query = "SELECT class_name FROM classes WHERE class_id = @ClassId";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@ClassId", id);
+                cmd.Prepare();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                List<Class> classes = new List<Class>();
+
+                while (reader.Read())
+                {
+                    Class csciclass = new Class(Convert.ToInt32(reader["Class_id"]), Convert.ToString(reader["class_name"]),
+                        Convert.ToString(reader["class_description"]));
+
+                    classes.Add(csciclass);
+                }
+                conn.Close();
+
+                return classes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        /// <summary>
+        /// Adds a class with the given class name and description parameters.
+        /// </summary>
+        /// <param name="className"> the name of the new class </param>
+        /// <param name="classDescription"> the description of the new class </param>
+        /// <exception cref="Exception"> if there was an issue inserting new class </exception>
+        public static void AddClass(string className, string classDescription)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "INSERT INTO classes (class_name, class_description) VALUES (@className, @classDescription)";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@className", className);
+                cmd.Parameters.AddWithValue("@classDescription", classDescription);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for updating a Class
+        public static void UpdateClass(string class_name, string class_description, int class_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "UPDATE classes SET class_name = @class_name, class_description = @class_description WHERE Class_id = @Class_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@class_name", class_name);
+                cmd.Parameters.AddWithValue("@class_description", class_description);
+                cmd.Parameters.AddWithValue("@class_id", class_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+            // Method for deleting a Class
+            public static void DeleteClass(int Class_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "DELETE FROM asscoiatedWith WHERE Class_id = @Class_id; DELETE FROM classes WHERE Class_id = @Class_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Class_id", Class_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
     }
 }
