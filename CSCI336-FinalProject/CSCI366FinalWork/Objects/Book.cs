@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 {
@@ -73,10 +74,10 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Book book = new Book(Convert.ToInt32(reader["Book_id"]), 
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
                         Convert.ToString(reader["title"]),
-                        Convert.ToString(reader["publisher"]), 
-                        Convert.ToString(reader["dev_language"]), 
+                        Convert.ToString(reader["publisher"]),
+                        Convert.ToString(reader["dev_language"]),
                         Convert.ToDateTime(reader["date_published"]));
 
                     books.Add(book);
@@ -108,8 +109,8 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 // Make command for db
                 NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM checkedout", conn);
 
-                // Run command and make list of all checked books and their values
-                List<CheckedOut>  checkedOutBooks = new List<CheckedOut>();
+                // Run command and make list of all checked out books and their values
+                List<CheckedOut> checkedOutBooks = new List<CheckedOut>();
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -121,6 +122,94 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                     checkedOutBook.checked_out_time = Convert.ToDateTime(reader["checked_out_time"]);
 
                     checkedOutBooks.Add(checkedOutBook);
+                }
+
+                // Close db connection
+                conn.Close();
+
+                // Return list of books
+                return checkedOutBooks;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for returning list of all currently checked out books and their values
+        public static List<CheckedOut> GetCurrentlyCheckedOutAll()
+        {
+            try
+            {
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM checkedout WHERE is_checkedout = true", conn);
+
+                // Run command and make list of all checked out books and their values
+                List<CheckedOut> checkedOutBooks = new List<CheckedOut>();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    CheckedOut checkedOutBook = new CheckedOut();
+                    checkedOutBook.user_id = Convert.ToInt32(reader["User_id"]);
+                    checkedOutBook.book_id = Convert.ToInt32(reader["Book_id"]);
+                    checkedOutBook.is_checkedout = Convert.ToBoolean(reader["is_checkedout"]);
+                    checkedOutBook.checked_out_time = Convert.ToDateTime(reader["checked_out_time"]);
+
+                    checkedOutBooks.Add(checkedOutBook);
+                }
+
+                // Close db connection
+                conn.Close();
+
+                // Return list of books
+                return checkedOutBooks;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for returning list of currently checked out books for the current user
+        public static List<(Book, DateTime)> GetCurrentCheckedOutForUser(int id)
+        {
+            try
+            {
+                // Get db connection
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+
+                // Open connection to db
+                conn.Open();
+
+                // Make command for db
+                NpgsqlCommand cmd = new NpgsqlCommand("SELECT b.Book_id, b.title, b.publisher, b.dev_language, b.date_published, ch.checked_out_time " +
+                      "FROM books as b " +
+                      "JOIN checkedout as ch on b.Book_id = ch.Book_id " +
+                      "WHERE ch.is_checkedout = true AND ch.User_id = @userId", conn);
+                cmd.Parameters.AddWithValue("@userId", id);
+                cmd.Prepare();
+
+                // Run command and make list of all checked out books and their values as a Book object
+                List<(Book, DateTime)> checkedOutBooks = new List<(Book, DateTime)>();
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Book checkedOutBook = new Book(Convert.ToInt32(reader["Book_id"]),
+                        Convert.ToString(reader["title"]),
+                        Convert.ToString(reader["publisher"]),
+                        Convert.ToString(reader["dev_language"]),
+                        Convert.ToDateTime(reader["date_published"]));
+                    DateTime checkeOutTime = Convert.ToDateTime(reader["checked_out_time"]);
+
+                    checkedOutBooks.Add((checkedOutBook, checkeOutTime));
                 }
 
                 // Close db connection
@@ -306,7 +395,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
-            
+
         }
 
         /// <summary>
@@ -346,7 +435,123 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
-            
+        }
+
+        // Method for returning list of books that are made by passed author last name
+        public static List<Book> GetBookByAuthor(string author_lastname)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "SELECT books.book_id, books.title, books.publisher, books.dev_language, books.date_published " +
+                    "FROM authoredby " +
+                    "JOIN books on authoredby.book_id = books.book_id " +
+                    "JOIN author on authoredby.author_id = author.author_id " +
+                    "WHERE author.last_name ILIKE @author_lastname";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@author_lastname", '%' + author_lastname + '%');
+                cmd.Prepare();
+
+                List<Book> books = new List<Book>();
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
+                         Convert.ToString(reader["title"]),
+                         Convert.ToString(reader["publisher"]),
+                         Convert.ToString(reader["dev_language"]),
+                         Convert.ToDateTime(reader["date_published"]));
+
+                    books.Add(book);
+                }
+                conn.Close();
+                return books;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for returning list of books that are used by a class
+        public static List<Book> GetBookByClass(string className)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "SELECT books.book_id, books.title, books.publisher, books.dev_language, books.date_published " +
+                    "FROM books " +
+                    "JOIN asscoiatedwith ON books.book_id = asscoiatedwith.book_id " +
+                    "JOIN classes ON asscoiatedwith.class_id = classes.class_id " +
+                    "WHERE class_name ILIKE @className";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@className", '%' + className + '%');
+                cmd.Prepare();
+
+                List<Book> books = new List<Book>();
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
+                         Convert.ToString(reader["title"]),
+                         Convert.ToString(reader["publisher"]),
+                         Convert.ToString(reader["dev_language"]),
+                         Convert.ToDateTime(reader["date_published"]));
+
+                    books.Add(book);
+                }
+                conn.Close();
+                return books;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for returning list of books that are required by a class
+        public static List<Book> GetBookByRequiredClass(string className)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "SELECT books.book_id, books.title, books.publisher, books.dev_language, books.date_published " +
+                    "FROM books " +
+                    "JOIN asscoiatedwith ON books.book_id = asscoiatedwith.book_id " +
+                    "JOIN classes ON asscoiatedwith.class_id = classes.class_id " +
+                    "WHERE class_name ILIKE @className AND is_required = true";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@className", '%' + className + '%');
+                cmd.Prepare();
+
+                List<Book> books = new List<Book>();
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Book book = new Book(Convert.ToInt32(reader["Book_id"]),
+                         Convert.ToString(reader["title"]),
+                         Convert.ToString(reader["publisher"]),
+                         Convert.ToString(reader["dev_language"]),
+                         Convert.ToDateTime(reader["date_published"]));
+
+                    books.Add(book);
+                }
+                conn.Close();
+                return books;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         /// <summary>
@@ -371,7 +576,185 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
-            
+
+        }
+
+        // Method to check out a book
+        public static void CheckOutBook(int user_id, int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "INSERT INTO checkedout (user_id, book_id, is_checkedout, checked_out_time) " +
+                    "SELECT @userID, @bookID, @is_checkedout, @checked_out_time " +
+                    "WHERE NOT EXISTS (SELECT book_id, is_checkedout " +
+                    "FROM checkedout WHERE book_id = @bookID AND is_checkedout = true)";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@userID", user_id);
+                cmd.Parameters.AddWithValue("@bookID", book_id);
+                cmd.Parameters.AddWithValue("@is_checkedout", true);
+                cmd.Parameters.AddWithValue("@checked_out_time", DateTime.Now);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for returning a book
+        public static void ReturnBook(int user_id, int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "UPDATE checkedout SET is_checkedout = false " +
+                    "WHERE user_id = @user_id AND book_id = @book_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@user_id", user_id);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for adding book
+        public static void AddBook(string title, string publisher, string dev_language, DateTime date_published)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "INSERT INTO books " +
+                    "(title, publisher, dev_language, date_published) " +
+                    "VALUES(@title, @publisher, @dev_language, @date_published)";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@title", title);
+                cmd.Parameters.AddWithValue("@publisher", publisher);
+                cmd.Parameters.AddWithValue("@dev_language", dev_language);
+                cmd.Parameters.AddWithValue("@date_published", date_published);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        //Method for updating book
+        public static void UpdateBook(string title, string publisher, string dev_language, DateTime date_published, int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "UPDATE books SET title = @title, publisher = @publisher, dev_language = @dev_language, date_published = @date_published WHERE book_id = @book_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@title", title);
+                cmd.Parameters.AddWithValue("@publisher", publisher);
+                cmd.Parameters.AddWithValue("@dev_language", dev_language);
+                cmd.Parameters.AddWithValue("@date_published", date_published);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        //Method for deleting book
+        public static void DeleteBook(int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "DELETE FROM asscoiatedwith WHERE book_id = @book_id; DELETE FROM authoredby WHERE book_id = @book_id; DELETE FROM checkedout WHERE book_id = @book_id; DELETE FROM books WHERE book_id = @book_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        public static void AddAuthoredBy(int author_id, int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "INSERT INTO authoredby (author_id, book_id) VALUES (@author_id, @book_id)";
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Parameters.AddWithValue("@author_id", author_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        // Method for deleting an AuthoredBy
+        public static void DeleteAuthoredBy(int author_id, int book_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "DELETE FROM authoredby WHERE author_id = @author_id AND book_id = @book_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@author_id", author_id);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         /// <summary>
@@ -380,7 +763,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
         /// <param name="bookid"> id of book </param>
         /// <param name="classid"> id of class </param>
         /// <param name="req"> a boolean to specify if the book is required </param>
-        public static void AddClassRequirement(int bookid, int classid, bool req)
+        public static void AddAssociatedWith(int bookid, int classid, bool req)
         {
             try
             {
@@ -402,7 +785,53 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
             {
                 throw new Exception(ex.Message, ex);
             }
-            
+        }
+
+        public static void UpdateAssociatedWith(int book_id, int class_id, bool req)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "UPDATE asscoiatedwith SET is_required = @req WHERE book_id = @book_id AND class_id = @class_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Parameters.AddWithValue("@class_id", class_id);
+                cmd.Parameters.AddWithValue("@req", req);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        public static void DeleteAssociatedWith(int book_id, int class_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "DELETE FROM asscoiatedwith WHERE book_id = @book_id AND class_id = @class_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Parameters.AddWithValue("@class_id", class_id);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
     }
 }

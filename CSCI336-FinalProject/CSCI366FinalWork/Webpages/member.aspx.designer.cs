@@ -24,13 +24,13 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Label lblWelcome;
 
         /// <summary>
-        /// LoginName1 control.
+        /// lblUserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LoginName LoginName1;
+        protected global::System.Web.UI.WebControls.Label lblUserName;
 
         /// <summary>
         /// LoginStatus1 control.
@@ -231,6 +231,15 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.Label lblInvalidClass;
 
         /// <summary>
+        /// cbIsRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox cbIsRequired;
+
+        /// <summary>
         /// lblCheckOutBook control.
         /// </summary>
         /// <remarks>
@@ -321,13 +330,13 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.GridView gvCheckedOutBooks;
 
         /// <summary>
-        /// lblUdpateUserInfo control.
+        /// lblUpdateUserInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUdpateUserInfo;
+        protected global::System.Web.UI.WebControls.Label lblUpdateUserInfo;
 
         /// <summary>
         /// gvCurrentUserInfo control.
@@ -384,6 +393,15 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         protected global::System.Web.UI.WebControls.TextBox tbUserCurrentPassword;
 
         /// <summary>
+        /// lblInvalidCurrentPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInvalidCurrentPassword;
+
+        /// <summary>
         /// tbUserNewPassword control.
         /// </summary>
         /// <remarks>
@@ -409,5 +427,14 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblInvalidInfo;
+
+        /// <summary>
+        /// lblUserUpdated control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUserUpdated;
     }
 }

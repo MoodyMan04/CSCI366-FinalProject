@@ -1,8 +1,4 @@
 ﻿using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CSCI336_FinalProject.CSCI366FinalWork
 {
@@ -15,7 +11,7 @@ namespace CSCI336_FinalProject.CSCI366FinalWork
         public static NpgsqlConnection GetConnection()
         {
             NpgsqlConnection conn = new NpgsqlConnection(connString);
-            return conn; 
+            return conn;
         }
     }
 }
