@@ -369,5 +369,48 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Webpages
                 lblInvalidAuthoredByInfo2.Visible = true;
             }
         }
+
+        protected void btnAddAssociatedWith_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book.AddAssociatedWith(Convert.ToInt32(tbAssociatedWithBookID.Text.Trim()), Convert.ToInt32(tbAssociatedWithClassID.Text.Trim()), chkIsRequired.Checked);
+                lblInvalidAssociationInfo.Visible = false;
+                UpdateAssociatedWithGV();
+            }
+            catch
+            {
+                lblInvalidAssociationInfo.Visible = true;
+            }
+        }
+
+        protected void btnUpdateAssociatedWith_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book.UpdateAssociatedWith(Convert.ToInt32(tbAssociatedWithBookID.Text.Trim()), Convert.ToInt32(tbAssociatedWithClassID.Text.Trim()), 
+                    chkIsRequired.Checked);
+                lblInvalidAssociationInfo2.Visible = false;
+                UpdateAssociatedWithGV();
+            }
+            catch
+            {
+                lblInvalidAssociationInfo2.Visible = true;
+            }
+        }
+
+        protected void btnDeleteAssociatedWith_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Book.DeleteAssociatedWith(Convert.ToInt32(tbAssociatedWithBookID.Text.Trim()), Convert.ToInt32(tbAssociatedWithClassID.Text.Trim()));
+                lblInvalidAssociationInfo3.Visible = false;
+                UpdateAssociatedWithGV();
+            }
+            catch
+            {
+                lblInvalidAssociationInfo3.Visible = true;
+            }
+        }
     }
 }

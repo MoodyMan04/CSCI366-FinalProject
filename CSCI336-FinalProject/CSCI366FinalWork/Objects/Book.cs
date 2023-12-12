@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
 {
@@ -736,6 +737,53 @@ namespace CSCI336_FinalProject.CSCI366FinalWork.Objects
                 cmd.Parameters.AddWithValue("@bookid", bookid);
                 cmd.Parameters.AddWithValue("@classid", classid);
                 cmd.Parameters.AddWithValue("@req", req);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        public static void UpdateAssociatedWith(int book_id, int class_id, bool req)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "UPDATE authoredby SET book_id = @book_id, class_id = @class_id, req = @req WHERE book_id = @book_id AND class_id = @class_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Parameters.AddWithValue("@class_id", class_id);
+                cmd.Parameters.AddWithValue("@book_id", req);
+                cmd.Prepare();
+
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
+
+        public static void DeleteAssociatedWith(int book_id, int class_id)
+        {
+            try
+            {
+                NpgsqlConnection conn = DatabaseManager.GetConnection();
+                conn.Open();
+
+                string query = "DELETE FROM asscoiatedwith WHERE book_id = @book_id AND class_id = @class_id;";
+
+                NpgsqlCommand cmd = new NpgsqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@book_id", book_id);
+                cmd.Parameters.AddWithValue("@class_id", class_id);
                 cmd.Prepare();
 
                 cmd.ExecuteNonQuery();

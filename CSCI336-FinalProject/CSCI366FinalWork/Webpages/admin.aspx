@@ -417,7 +417,7 @@
             <td style="width: 280px">&nbsp;<asp:Label ID="lblInvalidCheckedOutInfo" runat="server" ForeColor="Red" Text="Invalid Checked Out Info" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnAddAssociatedWith" runat="server" Text="Add Association" />
+                <asp:Button ID="btnAddAssociatedWith" runat="server" Text="Add Association" OnClick="btnAddAssociatedWith_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAssociationInfo" runat="server" ForeColor="Red" Text="Invalid Association Info" Visible="False"></asp:Label>
             </td>
@@ -432,7 +432,7 @@
                 <asp:Label ID="lblInvalidCheckedOutInfo2" runat="server" ForeColor="Red" Text="Invalid Checked Out Info" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnUpdateAssociatedWith" runat="server" Text="Update Association" />
+                <asp:Button ID="btnUpdateAssociatedWith" runat="server" Text="Update Association" OnClick="btnUpdateAssociatedWith_Click" />
 &nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAssociationInfo2" runat="server" ForeColor="Red" Text="Invalid Association Info" Visible="False"></asp:Label>
             </td>
@@ -445,7 +445,7 @@
                 <asp:Label ID="lblInvalidCheckedOutInfo3" runat="server" ForeColor="Red" Text="Invalid Checked Out Info" Visible="False"></asp:Label>
             </td>
             <td>
-                <asp:Button ID="btnDeleteAssociatedWith" runat="server" Text="Delete Association" />
+                <asp:Button ID="btnDeleteAssociatedWith" runat="server" Text="Delete Association" OnClick="btnDeleteAssociatedWith_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="lblInvalidAssociationInfo3" runat="server" ForeColor="Red" Text="Invalid Association Info" Visible="False"></asp:Label>
             </td>
